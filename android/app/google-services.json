@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "258089451299",
+    "project_id": "ghuyom-v1",
+    "storage_bucket": "ghuyom-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258089451299:android:f1623c0d323647d1109696",
+        "android_client_info": {
+          "package_name": "qa.ghuyom.ghuyom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258089451299-4oe9bsntro00cdo51j5m6ukq6f8n01e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "qa.ghuyom.ghuyom",
+            "certificate_hash": "8705f4ffcff5d859832c5b4cf4021e20a765657b"
+          }
+        },
+        {
+          "client_id": "258089451299-o6iueol95vt30gnvmu21t0ukq8nvp9en.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzX03vLiBIYVLFQurw9Ldtc_tsHqUZ2GU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258089451299-o6iueol95vt30gnvmu21t0ukq8nvp9en.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "258089451299-bliaj9gop6q48j31j0hhorpnj20o85hl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "qa.ghuyom.ghuyom"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
