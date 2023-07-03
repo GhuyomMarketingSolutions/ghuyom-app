@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:ghuyom/app/services/dio/api_service.dart';
 import 'package:ghuyom/app/services/snackbar.dart';
 import 'package:ghuyom/generated/locales.g.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,7 +26,7 @@ class AddBusinessController extends GetxController {
   GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
 
-  RxString dropDownValue = '0'.obs;
+  RxString dropDownValue = 'Restaurant'.obs;
   RxString openTime = TimeOfDay.now().format(Get.context!).obs;
   RxString closeTime = TimeOfDay.now().format(Get.context!).obs;
   RxString appBarTitle = LocaleKeys.add_your_business.tr.obs;
@@ -50,21 +52,31 @@ class AddBusinessController extends GetxController {
       <bool>[false, true, false, false, false, false, false].obs;
 
   List<DropdownMenuItem<String>> dropdownItems = [
-    DropdownMenuItem(value: "0", child: Text(LocaleKeys.restaurants.tr)),
-    DropdownMenuItem(value: "1", child: Text(LocaleKeys.hair_salon.tr)),
-    DropdownMenuItem(value: "2", child: Text(LocaleKeys.barber_shops.tr)),
-    DropdownMenuItem(value: "3", child: Text(LocaleKeys.beauty_wellness.tr)),
     DropdownMenuItem(
-        value: "4", child: Text(LocaleKeys.clothing_accessories.tr)),
-    DropdownMenuItem(value: "5", child: Text(LocaleKeys.fitness_gyms.tr)),
+        value: 'Restaurant', child: Text(LocaleKeys.restaurants.tr)),
     DropdownMenuItem(
-        value: "6", child: Text(LocaleKeys.home_cleaning_service.tr)),
+        value: 'Hair Salon', child: Text(LocaleKeys.hair_salon.tr)),
     DropdownMenuItem(
-        value: "7", child: Text(LocaleKeys.home_based_business.tr)),
-    DropdownMenuItem(value: "8", child: Text(LocaleKeys.adventure_tourism.tr)),
-    DropdownMenuItem(value: "9", child: Text(LocaleKeys.local_goods.tr)),
+        value: 'Barber Shop', child: Text(LocaleKeys.barber_shops.tr)),
+    DropdownMenuItem(
+        value: 'Beauty & Wellness', child: Text(LocaleKeys.beauty_wellness.tr)),
+    DropdownMenuItem(
+        value: 'Clothing & Accessories',
+        child: Text(LocaleKeys.clothing_accessories.tr)),
+    DropdownMenuItem(
+        value: 'Fitness & Gyms', child: Text(LocaleKeys.fitness_gyms.tr)),
+    DropdownMenuItem(
+        value: 'Home & Cleaning Service',
+        child: Text(LocaleKeys.home_cleaning_service.tr)),
+    DropdownMenuItem(
+        value: 'Home Based Business',
+        child: Text(LocaleKeys.home_based_business.tr)),
+    DropdownMenuItem(
+        value: 'Adventure & Tourism',
+        child: Text(LocaleKeys.adventure_tourism.tr)),
+    DropdownMenuItem(
+        value: 'Local Goods', child: Text(LocaleKeys.local_goods.tr)),
   ];
-
   Dio dio = Dio();
 
   @override
@@ -118,13 +130,16 @@ class AddBusinessController extends GetxController {
   onBackTap() {
     switch (step.value) {
       case 0:
-        return Get.back();
+        Get.back();
+        return true;
       case 1:
         appBarTitle.value = LocaleKeys.add_your_business.tr;
-        return step.value = 0;
+        step.value = 0;
+        return false;
       case 2:
         appBarTitle.value = LocaleKeys.add_more_information.tr;
-        return step.value = 1;
+        step.value = 1;
+        return false;
       default:
     }
   }
@@ -191,6 +206,8 @@ class AddBusinessController extends GetxController {
       processAddYourBusines();
     } else if (step.value == 1) {
       processsAddMoreInformation();
+    } else if (step.value == 2) {
+      processAddPictures();
     }
   }
 
@@ -230,7 +247,7 @@ class AddBusinessController extends GetxController {
         "subCategory": subcategoryController.text,
         "description": descriptionController.text,
         "address": addressController.text,
-        "coordinates": {"longitude": long, "lattitude": lati},
+        "coordinates": [long, lati],
         "instagram": instaController.text,
         "website": websiteController.text,
         "phoneNumber": phoneNos,
@@ -256,12 +273,55 @@ class AddBusinessController extends GetxController {
           "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
         ],
       });
+      postAddBusiness();
     }
   }
 
   onAddPhoneNoTap() {
     phoneControllers.add(TextEditingController());
     update();
+  }
+
+  postAddBusiness() async {
+    try {
+      await APIManager.postAddBusiness(body: {
+        "name": businessNameController.text,
+        "category": dropDownValue.value,
+        "subCategory": subcategoryController.text,
+        "description": descriptionController.text,
+        "address": addressController.text,
+        "coordinates": [long, lati],
+        "instagram": instaController.text,
+        "website": websiteController.text,
+        "phoneNumber": phoneNos,
+        "workingHours": {
+          "days": {
+            "monday": daysBool[0],
+            "tuesday": daysBool[1],
+            "wednesday": daysBool[2],
+            "thursday": daysBool[3],
+            "friday": daysBool[4],
+            "saturday": daysBool[5],
+            "sunday": daysBool[6]
+          },
+          "startTime": openTime.value,
+          "endTime": closeTime.value,
+          "isOpen24Hours": isOpen24Hours.value,
+          "isClosed": isShopClosed.value
+        },
+        "images": [
+          "https://images.unsplash.com/photo-1517840901100-8179e982acb7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+          "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
+        ],
+      }).then((value) {
+        print(value.data);
+        //TODO: add service
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   onRemovePhoneNoTap(int index) {
@@ -284,11 +344,13 @@ class AddBusinessController extends GetxController {
 
   Future<List<Map<String, String>>> getGooglePlacesSuggestions(
       String pattern) async {
-    print('google');
     await dio
         .get(
             'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${pattern.trim()}&radius=200&key=${Endpoints.googlePlacesAPIKey}')
-        .then((value) => gApi = GooglePlacesAPIResponse.fromJson(value.data));
+        .then((value) {
+      gApi = GooglePlacesAPIResponse.fromJson(value.data);
+      // print('gApi?.predictions?.length ${gApi?.predictions?.length}');
+    });
     return List.generate(
         gApi?.predictions?.length ?? 0,
         (index) => {

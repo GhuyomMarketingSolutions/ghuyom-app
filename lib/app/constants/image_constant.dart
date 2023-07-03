@@ -29,6 +29,7 @@ class ImageConstant {
   static String svgWhatsapp = 'assets/images/whatsapp.svg';
   static String svgCamera = 'assets/images/camera.svg';
   static String svgGhuyomLogo = 'assets/images/logo.svg';
+  static String svgEdit = 'assets/images/edit.svg';
 
 //PNGs
   static String pngLandBack1 = 'assets/images/landing_background.png';

@@ -46,6 +46,10 @@ class AdminPanelView extends GetView<AdminPanelController> {
                   onPressed: () => Get.toNamed(Routes.NAVIGATION),
                 ),
                 AdminPanelButton(
+                  label: 'service',
+                  onPressed: () => Get.toNamed(Routes.ADD_SERVICE),
+                ),
+                AdminPanelButton(
                   label: 'Print Token',
                   onPressed: () =>
                       log(Get.find<GetStorageService>().getEncjwToken),

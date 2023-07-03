@@ -10,59 +10,62 @@ class AddBusinessView extends GetView<AddBusinessController> {
   const AddBusinessView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-          resizeToAvoidBottomInset: true,
-          bottomNavigationBar: Padding(
-            padding: paddingSymmetric(horizontal: 20.kw, vertical: 25.kh),
-            child: GhuyomButton(
-              onPressed: () => controller.onContinueTap(),
-              label: LocaleKeys.xcontinue.tr,
-            ),
-          ),
-          body: Column(
-            children: [
-              Padding(
-                padding: paddingOnly(left: 20.kw, right: 20.kw, top: 52.kh),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: GhuyomRoundedBox(
-                            height: 40.kh,
-                            width: 40.kh,
-                            isBorder: true,
-                            borderColor: const Color(0xffD8DADC),
-                            borderRadius: 10.kh,
-                            borderWidth: 1.kh,
-                            onTap: () => controller.onBackTap(),
-                            child: Center(
-                              child: CommonImageView(
-                                height: 15.kh,
-                                width: 9.kh,
-                                svgPath: ImageConstant.svgBack,
-                              ),
-                            )),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 6,
-                      child: Obx(
-                        () => controller.appBarTitle.value
-                            .text600(18.kh, textAlign: TextAlign.center),
-                      ),
-                    ),
-                    const Expanded(flex: 2, child: Row())
-                  ],
-                ),
+    return WillPopScope(
+      onWillPop: () async => controller.onBackTap(),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            bottomNavigationBar: Padding(
+              padding: paddingSymmetric(horizontal: 20.kw, vertical: 25.kh),
+              child: GhuyomButton(
+                onPressed: () => controller.onContinueTap(),
+                label: LocaleKeys.xcontinue.tr,
               ),
-              46.kheightBox,
-              Obx(() => widgets(context))
-            ],
-          )),
+            ),
+            body: Column(
+              children: [
+                Padding(
+                  padding: paddingOnly(left: 20.kw, right: 20.kw, top: 52.kh),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: GhuyomRoundedBox(
+                              height: 40.kh,
+                              width: 40.kh,
+                              isBorder: true,
+                              borderColor: const Color(0xffD8DADC),
+                              borderRadius: 10.kh,
+                              borderWidth: 1.kh,
+                              onTap: () => controller.onBackTap(),
+                              child: Center(
+                                child: CommonImageView(
+                                  height: 15.kh,
+                                  width: 9.kh,
+                                  svgPath: ImageConstant.svgBack,
+                                ),
+                              )),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: Obx(
+                          () => controller.appBarTitle.value
+                              .text600(18.kh, textAlign: TextAlign.center),
+                        ),
+                      ),
+                      const Expanded(flex: 2, child: Row())
+                    ],
+                  ),
+                ),
+                46.kheightBox,
+                Obx(() => widgets(context))
+              ],
+            )),
+      ),
     );
   }
 
@@ -90,6 +93,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 LocaleKeys.name_of_your_business.tr.text600(16.kh),
                 10.kheightBox,
                 GhuyomTextField(
+                  controller: controller.businessNameController,
                   validator: (value) => controller.commonValidator(value),
                   hintFont: 14.kh,
                   radius: 5.kh,
@@ -131,6 +135,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 ])),
                 10.kheightBox,
                 GhuyomTextField(
+                  controller: controller.subcategoryController,
                   hintFont: 14.kh,
                   radius: 5.kh,
                   hint: LocaleKeys.enter_a_subcategory.tr,
@@ -140,6 +145,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 LocaleKeys.description.tr.text600(16.kh),
                 10.kheightBox,
                 GhuyomTextField(
+                  controller: controller.descriptionController,
                   validator: (value) => controller.commonValidator(value),
                   hintFont: 14.kh,
                   radius: 5.kh,
@@ -188,6 +194,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                   suggestionsCallback: (pattern) =>
                       controller.getGooglePlacesSuggestions(pattern),
                 ),
+                100.kheightBox
               ],
             ),
           ),

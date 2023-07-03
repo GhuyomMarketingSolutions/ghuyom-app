@@ -83,10 +83,17 @@ extension AppText on String {
             fontSize: fontSize, color: color ?? Colors.black),
       );
 
-  Widget text500(double fontSize, {Color? color, TextAlign? textAlign}) => Text(
+  Widget text500(double fontSize,
+          {Color? color,
+          TextAlign? textAlign,
+          TextStyle? style,
+          int? maxLines}) =>
+      Text(
         string,
-        style: TextStyleUtil.manrope500(
-            fontSize: fontSize, color: color ?? Colors.black),
+        maxLines: maxLines,
+        style: style ??
+            TextStyleUtil.manrope500(
+                fontSize: fontSize, color: color ?? Colors.black),
         textAlign: textAlign,
       );
 

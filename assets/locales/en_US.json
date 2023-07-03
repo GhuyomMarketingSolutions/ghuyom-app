@@ -135,5 +135,11 @@
   "something_went_wrong": "Something went wrong",
   "logout": "Log Out",
   "please_enter": "Please enter this detail",
-  "please_select_working": "Please select working days"
+  "please_select_working": "Please select working days",
+  "edit": "Edit",
+  "delete": "Delete",
+  "add_your_services": "Add your services ",
+  "add_service": "Add service",
+  "done": "Done",
+  "added_businesses": "Added businesses "
 }

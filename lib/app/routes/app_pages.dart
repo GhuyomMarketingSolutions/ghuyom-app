@@ -4,6 +4,8 @@ import '../modules/account_settings/bindings/account_settings_binding.dart';
 import '../modules/account_settings/views/account_settings_view.dart';
 import '../modules/add_business/bindings/add_business_binding.dart';
 import '../modules/add_business/views/add_business_view.dart';
+import '../modules/add_service/bindings/add_service_binding.dart';
+import '../modules/add_service/views/add_service_view.dart';
 import '../modules/admin_panel/bindings/admin_panel_binding.dart';
 import '../modules/admin_panel/views/admin_panel_view.dart';
 import '../modules/business/bindings/business_binding.dart';
@@ -135,6 +137,11 @@ class AppPages {
       name: _Paths.ADD_BUSINESS,
       page: () => const AddBusinessView(),
       binding: AddBusinessBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_SERVICE,
+      page: () => const AddServiceView(),
+      binding: AddServiceBinding(),
     ),
   ];
 }

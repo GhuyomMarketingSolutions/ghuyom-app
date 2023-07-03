@@ -3,8 +3,7 @@ class Endpoints {
 
   /// google API keys
   static const String googlePlacesAPIKey =
-      'AIzaSyDWYe8tPdGm-JECzpmg0ZLiN1b0YB5LCho';
-
+      'AIzaSyBzX03vLiBIYVLFQurw9Ldtc_tsHqUZ2GU';
 
   // base url
   static const String baseUrl = "http://13.51.195.68:7000/";
@@ -15,7 +14,16 @@ class Endpoints {
   // connectTimeout
   static const int connectionTimeout = 15000;
 
-  //post url
+  // Get url
+  static const String getAllBusiness = 'api/v1/owner/business/all';
+
+  // Post url
   static const String login = 'api/v1/owner/login';
   static const String onboarding = 'api/v1/owner/onboarding';
+  static const String addBusiness = 'api/v1/owner/business/add';
+  static const String addService = 'api/v1/owner/service/';
+
+  //Delete url
+    static const String deleteBusiness = 'api/v1/owner/service/';
+
 }

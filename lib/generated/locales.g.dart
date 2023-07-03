@@ -147,6 +147,12 @@ class LocaleKeys {
   static const logout = 'logout';
   static const please_enter = 'please_enter';
   static const please_select_working = 'please_select_working';
+  static const edit = 'edit';
+  static const delete = 'delete';
+  static const add_your_services = 'add_your_services';
+  static const add_service = 'add_service';
+  static const done = 'done';
+  static const added_businesses = 'added_businesses';
 }
 
 class Locales {
@@ -297,5 +303,11 @@ class Locales {
     'logout': 'Log Out',
     'please_enter': 'Please enter this detail',
     'please_select_working': 'Please select working days',
+    'edit': 'Edit',
+    'delete': 'Delete',
+    'add_your_services': 'Add your services ',
+    'add_service': 'Add service',
+    'done': 'Done',
+    'added_businesses': 'Added businesses ',
   };
 }

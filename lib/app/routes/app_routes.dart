@@ -21,6 +21,7 @@ abstract class Routes {
   static const EDIT_EMAIL_PASSWORD = _Paths.EDIT_EMAIL_PASSWORD;
   static const SUBSCRIPTION = _Paths.SUBSCRIPTION;
   static const ADD_BUSINESS = _Paths.ADD_BUSINESS;
+  static const ADD_SERVICE = _Paths.ADD_SERVICE;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const EDIT_EMAIL_PASSWORD = '/edit-email-password';
   static const SUBSCRIPTION = '/subscription';
   static const ADD_BUSINESS = '/add-business';
+  static const ADD_SERVICE = '/add-service';
 }
