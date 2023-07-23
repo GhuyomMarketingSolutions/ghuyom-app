@@ -22,17 +22,20 @@ Future<void> main() async {
     ],
   );
 
-  return runApp(GetMaterialApp(
-    theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-    defaultTransition: Transition.noTransition,
-    smartManagement: SmartManagement.full,
-    locale: const Locale('en', 'US'),
-    translationsKeys: AppTranslation.translations,
-    debugShowCheckedModeBanner: false,
-    title: "Ticket Checker",
-    initialRoute: AppPages.INITIAL,
-    initialBinding: HomeBinding(),
-    getPages: AppPages.routes,
+  return runApp(GestureDetector(
+    onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+    child: GetMaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
+      defaultTransition: Transition.noTransition,
+      smartManagement: SmartManagement.full,
+      locale: const Locale('en', 'US'),
+      translationsKeys: AppTranslation.translations,
+      debugShowCheckedModeBanner: false,
+      title: "Ticket Checker",
+      initialRoute: AppPages.INITIAL,
+      initialBinding: HomeBinding(),
+      getPages: AppPages.routes,
+    ),
   ));
 }
 

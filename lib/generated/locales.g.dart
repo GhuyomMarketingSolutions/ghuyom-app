@@ -153,6 +153,12 @@ class LocaleKeys {
   static const add_service = 'add_service';
   static const done = 'done';
   static const added_businesses = 'added_businesses';
+  static const name_of_your_service = 'name_of_your_service';
+  static const describe_your_service = 'describe_your_service';
+  static const price_of_your_service = 'price_of_your_service';
+  static const choose_a_picture = 'choose_a_picture';
+  static const enter_a_name = 'enter_a_name';
+  static const please_add_picture = 'please_add_picture';
 }
 
 class Locales {
@@ -308,6 +314,12 @@ class Locales {
     'add_your_services': 'Add your services ',
     'add_service': 'Add service',
     'done': 'Done',
-    'added_businesses': 'Added businesses ',
+    'added_businesses': 'Added businesses',
+    'name_of_your_service': 'Name of your service',
+    'describe_your_service': 'Describe your service',
+    'price_of_your_service': 'Price of your service',
+    'choose_a_picture': 'Choose a picture for your service',
+    'enter_a_name': 'Enter a name of your service',
+    'please_add_picture': 'Please add a picture',
   };
 }

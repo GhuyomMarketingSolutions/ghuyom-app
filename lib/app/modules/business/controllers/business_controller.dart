@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghuyom/app/services/dio/api_service.dart';
 
@@ -45,5 +46,27 @@ class BusinessController extends GetxController {
 
   onAddYourBusinessTap() {
     Get.toNamed(Routes.ADD_BUSINESS);
+  }
+
+  onEditTap(int index) {
+    return PopupMenuButton<int>(
+      itemBuilder: (context) => [
+        const PopupMenuItem(
+          value: 1,
+          child: Text(
+            "Flutter Open",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+          ),
+        ),
+        const PopupMenuItem(
+          value: 2,
+          child: Text(
+            "Flutter Tutorial",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+          ),
+        ),
+      ],
+    );
+    // Get.toNamed(Routes.ADD_BUSINESS, arguments: businesses[index]);
   }
 }

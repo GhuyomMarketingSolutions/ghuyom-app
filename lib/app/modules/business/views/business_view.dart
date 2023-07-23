@@ -58,14 +58,21 @@ class BusinessView extends GetView<BusinessController> {
                               children: [
                                 Row(
                                   children: [
-                                    CommonImageView(
-                                      svgPath: ImageConstant.svgEdit,
-                                      height: 16.kh,
-                                      width: 16.kh,
+                                    GestureDetector(
+                                      onTap: () => controller.onEditTap(index),
+                                      child: Row(
+                                        children: [
+                                          CommonImageView(
+                                            svgPath: ImageConstant.svgEdit,
+                                            height: 16.kh,
+                                            width: 16.kh,
+                                          ),
+                                          4.kwidthBox,
+                                          LocaleKeys.edit.tr.text400(14.kh,
+                                              color: ColorUtil.mainColorGreen),
+                                        ],
+                                      ),
                                     ),
-                                    4.kwidthBox,
-                                    LocaleKeys.edit.tr.text400(14.kh,
-                                        color: ColorUtil.mainColorGreen),
                                     const Spacer(),
                                     GestureDetector(
                                       onTap: () =>
@@ -142,7 +149,7 @@ class BusinessView extends GetView<BusinessController> {
                                                     3.kwidthBox,
                                                     Expanded(
                                                       child:
-                                                          '${controller.businesses[index].address}dfkgnvsnidvsvdicsvdcigsvncsgvdincvnyvubrtntf'
+                                                          '${controller.businesses[index].address}'
                                                               .text500(10.kh,
                                                                   maxLines: 1,
                                                                   style:

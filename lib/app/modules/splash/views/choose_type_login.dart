@@ -15,18 +15,14 @@ class ChooseTypeLogin extends GetView<SplashController> {
         alignment: Alignment.center,
         children: [
           CommonImageView(
+              height: 100.h,
+              width: 100.w,
+              fit: BoxFit.cover,
+              imagePath: ImageConstant.svgSplashView),
+          Container(
+            color: Colors.white.withOpacity(.2),
             height: 100.h,
             width: 100.w,
-            imagePath: ImageConstant.pngSplashBg,
-          ),
-          Positioned(
-            top: 60.kh,
-            child: Hero(
-              tag: 'logo',
-              child: CommonImageView(
-                svgPath: ImageConstant.svgGhuyomLogo,
-              ),
-            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -25,8 +25,8 @@ class SplashView extends GetView<SplashController> {
           Hero(
             tag: 'logo',
             child: CommonImageView(
-              height: 50,
-              svgPath: ImageConstant.svgGhuyomLogo,
+              // height: 50,
+              imagePath: ImageConstant.svgGhuyomLogo,
             ),
           ),
         ],

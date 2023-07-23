@@ -24,6 +24,5 @@ class Endpoints {
   static const String addService = 'api/v1/owner/service/';
 
   //Delete url
-    static const String deleteBusiness = 'api/v1/owner/service/';
-
+  static const String deleteBusiness = 'api/v1/owner/service/';
 }

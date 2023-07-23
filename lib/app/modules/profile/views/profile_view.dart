@@ -105,13 +105,10 @@ class ProfileView extends GetView<ProfileController> {
               child: ListTile(
                 onTap: () => controller.onLogoutTap(),
                 leading: Icon(Icons.logout, color: Colors.red),
-                title: LocaleKeys.logout.text400(16.kh, color: Colors.red),
+                title: LocaleKeys.logout.tr.text400(16.kh, color: Colors.red),
               ),
             ),
-            Divider(
-              color: const Color(0xfff1f1f1),
-              thickness: 1.kh,
-            )
+            Divider(color: const Color(0xfff1f1f1), thickness: 1.kh)
           ],
         ));
   }

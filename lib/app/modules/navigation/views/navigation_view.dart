@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:ghuyom/app/modules/business/views/business_view.dart';
-import 'package:ghuyom/app/modules/favourites/views/favourites_view.dart';
 import 'package:ghuyom/app/services/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
 import '../../../services/index.dart';
 import '../../home/views/home_view.dart';
 import '../../profile/views/profile_view.dart';
@@ -16,7 +13,7 @@ class NavigationView extends GetView<NavigationController> {
   final List<Widget> pages = const [
     HomeView(),
     BusinessView(),
-    FavouritesView(),
+    // FavouritesView(),
     ProfileView(),
   ];
   @override
@@ -75,21 +72,21 @@ class NavigationView extends GetView<NavigationController> {
             width: 21.kh,
           ),
         ),
-        PersistentBottomNavBarItem(
-          activeColorPrimary: ColorUtil.navBarColor,
-          inactiveIcon: CommonImageView(
-            fit: BoxFit.contain,
-            svgPath: ImageConstant.svgFavouritesOff,
-            height: 24.kh,
-            width: 24.kh,
-          ),
-          icon: CommonImageView(
-            fit: BoxFit.contain,
-            svgPath: ImageConstant.svgFavouritesOn,
-            height: 24.kh,
-            width: 24.kh,
-          ),
-        ),
+        // PersistentBottomNavBarItem(
+        //   activeColorPrimary: ColorUtil.navBarColor,
+        //   inactiveIcon: CommonImageView(
+        //     fit: BoxFit.contain,
+        //     svgPath: ImageConstant.svgFavouritesOff,
+        //     height: 24.kh,
+        //     width: 24.kh,
+        //   ),
+        //   icon: CommonImageView(
+        //     fit: BoxFit.contain,
+        //     svgPath: ImageConstant.svgFavouritesOn,
+        //     height: 24.kh,
+        //     width: 24.kh,
+        //   ),
+        // ),
         PersistentBottomNavBarItem(
           activeColorPrimary: ColorUtil.navBarColor,
           inactiveIcon: CommonImageView(

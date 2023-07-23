@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ghuyom/app/modules/add_service/views/add_service.dart';
 import 'package:ghuyom/app/services/colors.dart';
 
 import '../../../services/index.dart';
@@ -51,13 +52,33 @@ class AddServiceView extends GetView<AddServiceController> {
               ],
             ),
             30.kheightBox,
+            Row(
+              children: [
+                CommonImageView(
+                  svgPath: ImageConstant.svgEdit,
+                  height: 16.kh,
+                  width: 16.kh,
+                ),
+                4.kwidthBox,
+                LocaleKeys.edit.tr
+                    .text400(14.kh, color: ColorUtil.mainColorGreen),
+                const Spacer(),
+                GestureDetector(
+                  // onTap: () =>
+                  //     controller.onDeleteBusinessTap(index),
+                  child:
+                      LocaleKeys.delete.tr.text400(14.kh, color: ColorUtil.red),
+                )
+              ],
+            ),
+            8.kheightBox,
             DecoratedBox(
               decoration: const BoxDecoration(boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
-                  offset: Offset(5.0, 5.0),
-                  blurRadius: 10.0,
-                  spreadRadius: 2.0,
+                  offset: Offset(0.5, 0.5),
+                  blurRadius: 20.0,
+                  spreadRadius: .50,
                 ),
               ]),
               child: GhuyomRoundedBox(
@@ -97,7 +118,7 @@ class AddServiceView extends GetView<AddServiceController> {
               child: GhuyomButton(
                 isBorder: true,
                 color: Colors.white,
-                onPressed: () {},
+                onPressed: () => Get.to(() => const AddService()),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

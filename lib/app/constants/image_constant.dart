@@ -28,10 +28,11 @@ class ImageConstant {
   static String svgPaypal = 'assets/images/paypal.svg';
   static String svgWhatsapp = 'assets/images/whatsapp.svg';
   static String svgCamera = 'assets/images/camera.svg';
-  static String svgGhuyomLogo = 'assets/images/logo.svg';
   static String svgEdit = 'assets/images/edit.svg';
 
 //PNGs
+  static String svgGhuyomLogo = 'assets/images/logo.png';
+  static String svgSplashView = 'assets/images/splash_view.png';
   static String pngLandBack1 = 'assets/images/landing_background.png';
   static String pngLandBack2 = 'assets/images/landing_background2.png';
   static String pngRestaurant = 'assets/images/restaurant.png';

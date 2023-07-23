@@ -523,7 +523,8 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       isBorder: true,
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
-                      child: controller.file1 == null
+                      child: controller.file1 == null &&
+                              controller.imageUrl[0].isEmpty
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -536,10 +537,15 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
                             )
-                          : CommonImageView(
-                              fit: BoxFit.cover,
-                              file: controller.file1,
-                            )),
+                          : controller.imageUrl[0].isEmpty
+                              ? CommonImageView(
+                                  fit: BoxFit.cover,
+                                  file: controller.file1,
+                                )
+                              : CommonImageView(
+                                  fit: BoxFit.cover,
+                                  url: controller.imageUrl[0],
+                                )),
                 ),
                 12.kwidthBox,
                 Expanded(
@@ -550,12 +556,9 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       isBorder: true,
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
-                      child: controller.file2 != null
-                          ? CommonImageView(
-                              fit: BoxFit.cover,
-                              file: controller.file2,
-                            )
-                          : Column(
+                      child: controller.file2 == null &&
+                              controller.imageUrl[1].isEmpty
+                          ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CommonImageView(
@@ -566,7 +569,16 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 2.kheightBox,
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
-                            )),
+                            )
+                          : controller.imageUrl[1].isEmpty
+                              ? CommonImageView(
+                                  fit: BoxFit.cover,
+                                  file: controller.file2,
+                                )
+                              : CommonImageView(
+                                  fit: BoxFit.cover,
+                                  url: controller.imageUrl[1],
+                                )),
                 ),
               ],
             ),
@@ -581,12 +593,9 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       isBorder: true,
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
-                      child: controller.file3 != null
-                          ? CommonImageView(
-                              fit: BoxFit.cover,
-                              file: controller.file3,
-                            )
-                          : Column(
+                      child: controller.file3 == null &&
+                              controller.imageUrl[2].isEmpty
+                          ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CommonImageView(
@@ -597,7 +606,16 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 2.kheightBox,
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
-                            )),
+                            )
+                          : controller.imageUrl[2].isEmpty
+                              ? CommonImageView(
+                                  fit: BoxFit.cover,
+                                  file: controller.file3,
+                                )
+                              : CommonImageView(
+                                  fit: BoxFit.cover,
+                                  url: controller.imageUrl[2],
+                                )),
                 ),
                 12.kwidthBox,
                 Expanded(
@@ -608,12 +626,9 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       isBorder: true,
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
-                      child: controller.file4 != null
-                          ? CommonImageView(
-                              fit: BoxFit.cover,
-                              file: controller.file4,
-                            )
-                          : Column(
+                      child: controller.file4 == null &&
+                              controller.imageUrl[3].isEmpty
+                          ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CommonImageView(
@@ -624,7 +639,16 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 2.kheightBox,
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
-                            )),
+                            )
+                          : controller.imageUrl[3].isEmpty
+                              ? CommonImageView(
+                                  fit: BoxFit.cover,
+                                  file: controller.file4,
+                                )
+                              : CommonImageView(
+                                  fit: BoxFit.cover,
+                                  url: controller.imageUrl[3],
+                                )),
                 ),
               ],
             ),

@@ -4,11 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:ghuyom/app/routes/app_pages.dart';
 import 'package:ghuyom/app/services/dio/api_service.dart';
 import 'package:ghuyom/app/services/snackbar.dart';
 import 'package:ghuyom/generated/locales.g.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../data/google_places_details_api.dart';
+import '../../../models/get_all_businesses_model.dart';
 import '../../../models/google_place_api_response.dart';
 import '../../../services/dio/endpoints.dart';
 
@@ -22,6 +24,7 @@ class AddBusinessController extends GetxController {
   List<TextEditingController> phoneControllers = <TextEditingController>[];
 
   List<Map<String, dynamic>> phoneNos = [];
+  Businesses? business;
 
   GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -43,6 +46,8 @@ class AddBusinessController extends GetxController {
   RxBool isOpen24Hours = false.obs;
   RxBool isShopClosed = false.obs;
   RxBool isCheck3 = false.obs;
+
+  RxList<String> imageUrl = <String>[].obs;
 
   File? file1, file2, file3, file4;
 
@@ -83,17 +88,24 @@ class AddBusinessController extends GetxController {
   void onInit() {
     super.onInit();
     phoneControllers.add(TextEditingController());
+
+    Get.arguments != null
+        ? {
+            business = Get.arguments,
+          }
+        : null;
   }
 
   @override
   void onReady() {
     super.onReady();
+    Get.arguments != null ? editBusiness() : null;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
 
   onDropDownTap(value) {
     dropDownValue.value = value;
@@ -190,7 +202,6 @@ class AddBusinessController extends GetxController {
   savePic(int index, String path) {
     switch (index) {
       case 1:
-        print(path);
         return file1 = File(path);
       case 2:
         return file2 = File(path);
@@ -207,7 +218,7 @@ class AddBusinessController extends GetxController {
     } else if (step.value == 1) {
       processsAddMoreInformation();
     } else if (step.value == 2) {
-      processAddPictures();
+      hittingApis();
     }
   }
 
@@ -223,7 +234,7 @@ class AddBusinessController extends GetxController {
             "isWhatsappAvailable": i == 0 ? isOnWhatsapp.value : false
           });
         }
-        print(phoneNos);
+
         appBarTitle.value = LocaleKeys.add_pictures.tr;
         step.value = 2;
       }
@@ -237,7 +248,7 @@ class AddBusinessController extends GetxController {
     }
   }
 
-  processAddPictures() {
+  hittingApis() async {
     if (file1 == null || file2 == null || file3 == null || file4 == null) {
       showMySnackbar(msg: 'Please select all four pictures');
     } else {
@@ -273,7 +284,16 @@ class AddBusinessController extends GetxController {
           "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
         ],
       });
-      postAddBusiness();
+      await postAddBusiness();
+    }
+  }
+
+  postAddPictures() async {
+    //TODO: add upload image API
+    try {
+      // await APIManager.
+    } catch (e) {
+      log(e.toString());
     }
   }
 
@@ -316,8 +336,10 @@ class AddBusinessController extends GetxController {
           "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
         ],
       }).then((value) {
-        print(value.data);
-        //TODO: add service
+        value.data['status']
+            ? Get.toNamed(Routes.ADD_SERVICE,
+                arguments: value.data['business']['_id'])
+            : null;
       });
     } catch (e) {
       log(e.toString());
@@ -357,5 +379,37 @@ class AddBusinessController extends GetxController {
               'name': gApi?.predictions?[index].description ?? '',
               'placeId': gApi?.predictions?[index].placeId ?? '',
             });
+  }
+
+  editBusiness() {
+    businessNameController.text = business?.name ?? '';
+    dropDownValue.value = business?.category ?? '';
+    subcategoryController.text = business?.subCategory ?? '';
+    descriptionController.text = business?.description ?? '';
+    addressController.text = business?.address ?? '';
+    long = business?.location?.coordinates?[0];
+    lati = business?.location?.coordinates?[1];
+    instaController.text = business?.instagram ?? '';
+    websiteController.text = business?.website ?? '';
+    if (business?.phoneNumber?.isNotEmpty ?? false) {
+      phoneControllers = [];
+      for (var element in business?.phoneNumber ?? []) {
+        phoneControllers
+            .add(TextEditingController(text: element.number.toString()));
+      }
+    }
+    isOnWhatsapp.value = business?.phoneNumber?[0].isWhatsappAvailable ?? false;
+    daysBool[0] = business?.workingHours?.days?.monday ?? false;
+    daysBool[1] = business?.workingHours?.days?.tuesday ?? false;
+    daysBool[2] = business?.workingHours?.days?.wednesday ?? false;
+    daysBool[3] = business?.workingHours?.days?.thursday ?? false;
+    daysBool[4] = business?.workingHours?.days?.friday ?? false;
+    daysBool[5] = business?.workingHours?.days?.saturday ?? false;
+    daysBool[6] = business?.workingHours?.days?.sunday ?? false;
+    isOpen24Hours.value = business?.workingHours?.isOpen24Hours ?? false;
+    isShopClosed.value = business?.workingHours?.isClosed ?? false;
+    openTime.value = business?.workingHours?.startTime ?? '';
+    closeTime.value = business?.workingHours?.endTime ?? '';
+    imageUrl.value = business?.images ?? [];
   }
 }
