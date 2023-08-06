@@ -1,9 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:ghuyom/app/services/dio/api_service.dart';
 import 'package:ghuyom/app/services/snackbar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -61,11 +65,16 @@ class AddServiceController extends GetxController {
     }
   }
 
-  onDoneTap() {
+  onDoneTap() async {
     if (formKey.currentState!.validate()) {
       if (file == null) {
         showMySnackbar(msg: LocaleKeys.please_add_picture.tr);
-      } else {}
+      } else {
+
+        //TOdo: check API connectivity
+        
+        await addPhoto();
+      }
     }
   }
 
@@ -77,6 +86,26 @@ class AddServiceController extends GetxController {
         "price": int.parse(priceController.text),
         "image": imageUrl
       }, businessId: businessId ?? '');
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  addPhoto() async {
+    try {
+      await APIManager.addSinglePhoto(
+          body: FormData.fromMap({
+        'images': [
+          await MultipartFile.fromFile(file?.path ?? ''),
+        ],
+        'type': 'service'
+      })).then((value) async {
+        if (value.data['status']) {
+          imageUrl = value.data['url'];
+          print(imageUrl);
+          await addService();
+        }
+      });
     } catch (e) {
       log(e.toString());
     }

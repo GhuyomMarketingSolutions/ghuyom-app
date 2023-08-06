@@ -306,12 +306,13 @@ class AddBusinessView extends GetView<AddBusinessController> {
                               children: [
                                 Expanded(
                                   child: GhuyomTextField(
+                                    maxLength: 8,
                                     textInputType: TextInputType.number,
                                     validator: (value) =>
-                                        controller.commonValidator(value),
+                                        controller.phoneValidator(value),
                                     controller:
                                         controller.phoneControllers[index],
-                                    hint: '+00 000 00 00 000',
+                                    hint: '0000 0000',
                                     hintFont: 14.kh,
                                     radius: 5.kh,
                                     hintColor: const Color(0xffB0B0B0),
@@ -524,7 +525,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
                       child: controller.file1 == null &&
-                              controller.imageUrl[0].isEmpty
+                              controller.imageUrl[0] == ''
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -537,7 +538,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
                             )
-                          : controller.imageUrl[0].isEmpty
+                          : controller.imageUrl[0] == ''
                               ? CommonImageView(
                                   fit: BoxFit.cover,
                                   file: controller.file1,
@@ -557,7 +558,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
                       child: controller.file2 == null &&
-                              controller.imageUrl[1].isEmpty
+                              controller.imageUrl[1] == ''
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -570,7 +571,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
                             )
-                          : controller.imageUrl[1].isEmpty
+                          : controller.imageUrl[1] == ''
                               ? CommonImageView(
                                   fit: BoxFit.cover,
                                   file: controller.file2,
@@ -594,7 +595,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
                       child: controller.file3 == null &&
-                              controller.imageUrl[2].isEmpty
+                              controller.imageUrl[2] == ''
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -607,7 +608,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
                             )
-                          : controller.imageUrl[2].isEmpty
+                          : controller.imageUrl[2] == ''
                               ? CommonImageView(
                                   fit: BoxFit.cover,
                                   file: controller.file3,
@@ -627,7 +628,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                       borderWidth: 1.kh,
                       borderColor: ColorUtil.mainColorGrey1,
                       child: controller.file4 == null &&
-                              controller.imageUrl[3].isEmpty
+                              controller.imageUrl[3] == ''
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -640,7 +641,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                                 LocaleKeys.add_picture.tr.text500(14.kh)
                               ],
                             )
-                          : controller.imageUrl[3].isEmpty
+                          : controller.imageUrl[3] == ''
                               ? CommonImageView(
                                   fit: BoxFit.cover,
                                   file: controller.file4,

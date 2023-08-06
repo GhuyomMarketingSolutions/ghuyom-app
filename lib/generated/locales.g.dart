@@ -159,6 +159,7 @@ class LocaleKeys {
   static const choose_a_picture = 'choose_a_picture';
   static const enter_a_name = 'enter_a_name';
   static const please_add_picture = 'please_add_picture';
+  static const proper_number = 'proper_number';
 }
 
 class Locales {
@@ -321,5 +322,6 @@ class Locales {
     'choose_a_picture': 'Choose a picture for your service',
     'enter_a_name': 'Enter a name of your service',
     'please_add_picture': 'Please add a picture',
+    'proper_number': 'Please add a proper phone number',
   };
 }

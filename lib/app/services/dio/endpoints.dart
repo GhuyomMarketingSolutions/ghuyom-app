@@ -22,6 +22,8 @@ class Endpoints {
   static const String onboarding = 'api/v1/owner/onboarding';
   static const String addBusiness = 'api/v1/owner/business/add';
   static const String addService = 'api/v1/owner/service/';
+  static const String addMultiplePhotos = '/api/v1/file/upload/multiple';
+  static const String addSinglePhoto = '/api/v1/file/upload/single';
 
   //Delete url
   static const String deleteBusiness = 'api/v1/owner/service/';

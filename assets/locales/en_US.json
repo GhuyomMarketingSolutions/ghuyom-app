@@ -147,5 +147,6 @@
   "price_of_your_service": "Price of your service",
   "choose_a_picture": "Choose a picture for your service",
   "enter_a_name": "Enter a name of your service",
-  "please_add_picture": "Please add a picture"
+  "please_add_picture": "Please add a picture",
+  "proper_number": "Please add a proper phone number"
 }

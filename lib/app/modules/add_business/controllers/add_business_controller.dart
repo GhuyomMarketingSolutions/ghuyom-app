@@ -3,7 +3,12 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get_utils/get_utils.dart';
+
 import 'package:ghuyom/app/routes/app_pages.dart';
 import 'package:ghuyom/app/services/dio/api_service.dart';
 import 'package:ghuyom/app/services/snackbar.dart';
@@ -47,7 +52,7 @@ class AddBusinessController extends GetxController {
   RxBool isShopClosed = false.obs;
   RxBool isCheck3 = false.obs;
 
-  RxList<String> imageUrl = <String>[].obs;
+  List imageUrl = <String>['', '', '', ''].obs;
 
   File? file1, file2, file3, file4;
 
@@ -120,6 +125,12 @@ class AddBusinessController extends GetxController {
   commonValidator(String? value) {
     if (value?.isEmpty ?? true) {
       return LocaleKeys.please_enter.tr;
+    }
+  }
+
+  phoneValidator(String? value) {
+    if ((value?.isEmpty ?? true) || value?.length != 8) {
+      return LocaleKeys.proper_number.tr;
     }
   }
 
@@ -252,46 +263,28 @@ class AddBusinessController extends GetxController {
     if (file1 == null || file2 == null || file3 == null || file4 == null) {
       showMySnackbar(msg: 'Please select all four pictures');
     } else {
-      print({
-        "name": businessNameController.text,
-        "category": dropDownValue.value,
-        "subCategory": subcategoryController.text,
-        "description": descriptionController.text,
-        "address": addressController.text,
-        "coordinates": [long, lati],
-        "instagram": instaController.text,
-        "website": websiteController.text,
-        "phoneNumber": phoneNos,
-        "workingHours": {
-          "days": {
-            "monday": daysBool[0],
-            "tuesday": daysBool[1],
-            "wednesday": daysBool[2],
-            "thursday": daysBool[3],
-            "friday": daysBool[4],
-            "saturday": daysBool[5],
-            "sunday": daysBool[6]
-          },
-          "startTime": openTime.value,
-          "endTime": closeTime.value,
-          "isOpen24Hours": isOpen24Hours.value,
-          "isClosed": isShopClosed.value
-        },
-        "images": [
-          "https://images.unsplash.com/photo-1517840901100-8179e982acb7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-          "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
-        ],
-      });
-      await postAddBusiness();
+      await postAddPictures();
     }
   }
 
   postAddPictures() async {
-    //TODO: add upload image API
     try {
-      // await APIManager.
+      await APIManager.addMultiplePhotos(
+          body: FormData.fromMap({
+        'images': [
+          await MultipartFile.fromFile(file1?.path ?? ''),
+          await MultipartFile.fromFile(file2?.path ?? ''),
+          await MultipartFile.fromFile(file3?.path ?? ''),
+          await MultipartFile.fromFile(file4?.path ?? ''),
+        ],
+        'type': 'business'
+      })).then((value) async {
+        if (value.data['status']) {
+          imageUrl = value.data['urls']['images'];
+          print(imageUrl);
+          await postAddBusiness();
+        }
+      });
     } catch (e) {
       log(e.toString());
     }
@@ -329,12 +322,7 @@ class AddBusinessController extends GetxController {
           "isOpen24Hours": isOpen24Hours.value,
           "isClosed": isShopClosed.value
         },
-        "images": [
-          "https://images.unsplash.com/photo-1517840901100-8179e982acb7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-          "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-          "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1025&q=80"
-        ],
+        "images": imageUrl,
       }).then((value) {
         value.data['status']
             ? Get.toNamed(Routes.ADD_SERVICE,
@@ -410,6 +398,6 @@ class AddBusinessController extends GetxController {
     isShopClosed.value = business?.workingHours?.isClosed ?? false;
     openTime.value = business?.workingHours?.startTime ?? '';
     closeTime.value = business?.workingHours?.endTime ?? '';
-    imageUrl.value = business?.images ?? [];
+    imageUrl = business?.images ?? [];
   }
 }

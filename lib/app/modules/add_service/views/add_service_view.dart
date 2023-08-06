@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ghuyom/app/modules/add_service/views/add_service.dart';
-import 'package:ghuyom/app/services/colors.dart';
 
 import '../../../services/index.dart';
 import '../controllers/add_service_controller.dart';
@@ -52,67 +51,67 @@ class AddServiceView extends GetView<AddServiceController> {
               ],
             ),
             30.kheightBox,
-            Row(
-              children: [
-                CommonImageView(
-                  svgPath: ImageConstant.svgEdit,
-                  height: 16.kh,
-                  width: 16.kh,
-                ),
-                4.kwidthBox,
-                LocaleKeys.edit.tr
-                    .text400(14.kh, color: ColorUtil.mainColorGreen),
-                const Spacer(),
-                GestureDetector(
-                  // onTap: () =>
-                  //     controller.onDeleteBusinessTap(index),
-                  child:
-                      LocaleKeys.delete.tr.text400(14.kh, color: ColorUtil.red),
-                )
-              ],
-            ),
-            8.kheightBox,
-            DecoratedBox(
-              decoration: const BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.5, 0.5),
-                  blurRadius: 20.0,
-                  spreadRadius: .50,
-                ),
-              ]),
-              child: GhuyomRoundedBox(
-                  child: Row(
-                children: [
-                  GhuyomRoundedBox(
-                    color: Colors.grey,
-                    height: 90.kh,
-                    width: 99.kw,
-                    child: const SizedBox.shrink(),
-                  ),
-                  25.kwidthBox,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            'Haircut'.text500(16.kh),
-                            '\$ 30'
-                                .text600(16.kh, color: ColorUtil.mainColorGreen)
-                          ],
-                        ),
-                        8.kheightBox,
-                        'We offer profesional haircuts for certain hair types or styles, such as textured hair or layered haircuts'
-                            .text400(10.kh, color: ColorUtil.grey)
-                      ],
-                    ),
-                  )
-                ],
-              ).paddingAll(11.kh)),
-            ),
-            30.kheightBox,
+            // Row(
+            //   children: [
+            //     CommonImageView(
+            //       svgPath: ImageConstant.svgEdit,
+            //       height: 16.kh,
+            //       width: 16.kh,
+            //     ),
+            //     4.kwidthBox,
+            //     LocaleKeys.edit.tr
+            //         .text400(14.kh, color: ColorUtil.mainColorGreen),
+            //     const Spacer(),
+            //     GestureDetector(
+            //       // onTap: () =>
+            //       //     controller.onDeleteBusinessTap(index),
+            //       child:
+            //           LocaleKeys.delete.tr.text400(14.kh, color: ColorUtil.red),
+            //     )
+            //   ],
+            // ),
+            // 8.kheightBox,
+            // DecoratedBox(
+            //   decoration: const BoxDecoration(boxShadow: [
+            //     BoxShadow(
+            //       color: Colors.grey,
+            //       offset: Offset(0.5, 0.5),
+            //       blurRadius: 20.0,
+            //       spreadRadius: .50,
+            //     ),
+            //   ]),
+            //   child: GhuyomRoundedBox(
+            //       child: Row(
+            //     children: [
+            //       GhuyomRoundedBox(
+            //         color: Colors.grey,
+            //         height: 90.kh,
+            //         width: 99.kw,
+            //         child: const SizedBox.shrink(),
+            //       ),
+            //       25.kwidthBox,
+            //       Expanded(
+            //         child: Column(
+            //           crossAxisAlignment: CrossAxisAlignment.stretch,
+            //           children: [
+            //             Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 'Haircut'.text500(16.kh),
+            //                 '\$ 30'
+            //                     .text600(16.kh, color: ColorUtil.mainColorGreen)
+            //               ],
+            //             ),
+            //             8.kheightBox,
+            //             'We offer profesional haircuts for certain hair types or styles, such as textured hair or layered haircuts'
+            //                 .text400(10.kh, color: ColorUtil.grey)
+            //           ],
+            //         ),
+            //       )
+            //     ],
+            //   ).paddingAll(11.kh)),
+            // ),
+            // 30.kheightBox,
             Align(
               alignment: Alignment.centerLeft,
               child: GhuyomButton(

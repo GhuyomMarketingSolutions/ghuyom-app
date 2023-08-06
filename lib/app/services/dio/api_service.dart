@@ -23,6 +23,18 @@ class APIManager {
           '${Endpoints.addService}+$businessId/add',
           data: jsonEncode(body));
 
+  static Future<Response> addMultiplePhotos({required dynamic body}) async =>
+      await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true).post(
+          Endpoints.addMultiplePhotos,
+          data: body,
+          options: Options(headers: {'Content-Type': 'multipart/form-data'}));
+
+  static Future<Response> addSinglePhoto({required dynamic body}) async =>
+      await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true).post(
+          Endpoints.addSinglePhoto,
+          data: body,
+          options: Options(headers: {'Content-Type': 'multipart/form-data'}));
+
   ///Get API
   static Future<Response> getAllBusiness() async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)

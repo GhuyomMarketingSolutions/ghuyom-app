@@ -47,6 +47,7 @@ class CommonImageView extends StatelessWidget {
           height: height,
           width: width,
           fit: fit,
+          // ignore: deprecated_member_use
           color: svgColor,
         ),
       );

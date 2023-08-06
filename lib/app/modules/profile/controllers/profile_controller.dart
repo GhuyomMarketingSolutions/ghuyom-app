@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ghuyom/app/constants/image_constant.dart';
+import 'package:ghuyom/app/modules/profile/views/privacy_policy.dart';
 import 'package:ghuyom/app/services/auth.dart';
 import 'package:ghuyom/generated/locales.g.dart';
 
@@ -17,20 +18,28 @@ class ProfileController extends GetxController {
     {'icon': ImageConstant.svgPrivacy, 'label': LocaleKeys.privacy_policy.tr},
   ];
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  List<String> privacy = [
+    'User Conduct: Users are responsible for their own conduct on the platform. This includes complying with all applicable laws and regulations, not engaging in fraud or abusive behavior, and not posting content that is illegal, obscene, or infringes on other\'s rights.',
+    'User Content: Users retain ownership of the content they post on the platform, but grant us a license to use, modify, or distribute the content for promotional or other purposes.',
+    'Platform Use: We reserve the right to modify, suspend, or terminate the platform at any time, with or without notice. We may also change the terms of use at any time.',
+    'Limitation of Liability: We are not liable for any damages or losses resulting from user\'s use of the platform, including any errors or interruptions in service.'
+        'Dispute Resolution: Any disputes arising from the use of the platform will be resolved through binding arbitration in accordance with the rules of the American Arbitration Association.'
+  ];
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
+
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
 
   onListElementTap(int index) {
     switch (index) {
@@ -44,20 +53,18 @@ class ProfileController extends GetxController {
           Get.toNamed(Routes.SUBSCRIPTION);
         }
         break;
-      case 0:
+      case 2:
         {
           print('object');
         }
         break;
-      case 0:
+      case 3:
         {
-          print('object');
+          print('3');
         }
         break;
-      case 0:
-        {
-          print('object');
-        }
+      case 4:
+        Get.to(() => const PrivacyPolicy());
         break;
       default:
     }

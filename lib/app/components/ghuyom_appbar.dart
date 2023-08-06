@@ -30,7 +30,6 @@ class GhuyomAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         textAlign: TextAlign.start,
-        //TODO
         style: TextStyleUtil.manrope600(fontSize: 18.kh),
       ),
       backgroundColor: Colors.transparent,
