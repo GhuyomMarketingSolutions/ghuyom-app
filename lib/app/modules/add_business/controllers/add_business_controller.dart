@@ -8,6 +8,9 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:get/instance_manager.dart';
+import 'package:ghuyom/app/models/file_upload_model.dart';
+import 'package:ghuyom/app/modules/business/controllers/business_controller.dart';
 
 import 'package:ghuyom/app/routes/app_pages.dart';
 import 'package:ghuyom/app/services/dio/api_service.dart';
@@ -52,7 +55,8 @@ class AddBusinessController extends GetxController {
   RxBool isShopClosed = false.obs;
   RxBool isCheck3 = false.obs;
 
-  List imageUrl = <String>['', '', '', ''].obs;
+  RxList<String> imageUrl = <String>['', '', '', ''].obs;
+  List<String> tempImageURL = [];
 
   File? file1, file2, file3, file4;
 
@@ -93,19 +97,14 @@ class AddBusinessController extends GetxController {
   void onInit() {
     super.onInit();
     phoneControllers.add(TextEditingController());
-
-    Get.arguments != null
-        ? {
-            business = Get.arguments,
-          }
-        : null;
+    Get.arguments != null ? {business = Get.arguments, editBusiness()} : null;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    Get.arguments != null ? editBusiness() : null;
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  //   Get.arguments != null ? editBusiness() : null;
+  // }
 
   // @override
   // void onClose() {
@@ -203,6 +202,8 @@ class AddBusinessController extends GetxController {
           await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image != null) {
         savePic(index, image.path);
+        imageUrl[index] = '';
+        tempImageURL[index] = '';
       }
       update();
     } on PlatformException catch (e) {
@@ -212,13 +213,13 @@ class AddBusinessController extends GetxController {
 
   savePic(int index, String path) {
     switch (index) {
-      case 1:
+      case 0:
         return file1 = File(path);
-      case 2:
+      case 1:
         return file2 = File(path);
-      case 3:
+      case 2:
         return file3 = File(path);
-      case 4:
+      case 3:
         return file4 = File(path);
     }
   }
@@ -260,10 +261,13 @@ class AddBusinessController extends GetxController {
   }
 
   hittingApis() async {
-    if (file1 == null || file2 == null || file3 == null || file4 == null) {
+    if ((file1 == null || file2 == null || file3 == null || file4 == null) &&
+        business == null) {
+      showMySnackbar(msg: 'Please select all four pictures');
+    } else if (business != null && imageUrl.length != 4) {
       showMySnackbar(msg: 'Please select all four pictures');
     } else {
-      await postAddPictures();
+      business == null ? await postAddPictures() : await postSelectedPictures();
     }
   }
 
@@ -281,8 +285,35 @@ class AddBusinessController extends GetxController {
       })).then((value) async {
         if (value.data['status']) {
           imageUrl = value.data['urls']['images'];
-          print(imageUrl);
+
           await postAddBusiness();
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  postSelectedPictures() async {
+    try {
+      await APIManager.addMultiplePhotos(
+          body: FormData.fromMap({
+        'images': [
+          if (file1 != null) await MultipartFile.fromFile(file1?.path ?? ''),
+          if (file2 != null) await MultipartFile.fromFile(file2?.path ?? ''),
+          if (file3 != null) await MultipartFile.fromFile(file3?.path ?? ''),
+          if (file4 != null) await MultipartFile.fromFile(file4?.path ?? ''),
+        ],
+        'type': 'business'
+      })).then((value) async {
+        if (value.data['status']) {
+          tempImageURL.removeWhere((element) => [''].contains(element));
+          print(tempImageURL);
+          List<String> data =
+              FileUploadModel.fromJson(value.data).urls?.images ?? [];
+          tempImageURL.addAll(data);
+          print(tempImageURL);
+          await patchBusiness();
         }
       });
     } catch (e) {
@@ -398,6 +429,45 @@ class AddBusinessController extends GetxController {
     isShopClosed.value = business?.workingHours?.isClosed ?? false;
     openTime.value = business?.workingHours?.startTime ?? '';
     closeTime.value = business?.workingHours?.endTime ?? '';
-    imageUrl = business?.images ?? [];
+    imageUrl.value = business?.images ?? [];
+    tempImageURL = imageUrl;
+  }
+
+  patchBusiness() async {
+    try {
+      await APIManager.putBusiness(businessId: business?.id ?? '', body: {
+        "name": businessNameController.text,
+        "category": dropDownValue.value,
+        "subCategory": subcategoryController.text,
+        "description": descriptionController.text,
+        "address": addressController.text,
+        "coordinates": [long, lati],
+        "instagram": instaController.text,
+        "website": websiteController.text,
+        "phoneNumber": phoneNos,
+        "workingHours": {
+          "days": {
+            "monday": daysBool[0],
+            "tuesday": daysBool[1],
+            "wednesday": daysBool[2],
+            "thursday": daysBool[3],
+            "friday": daysBool[4],
+            "saturday": daysBool[5],
+            "sunday": daysBool[6]
+          },
+          "startTime": openTime.value,
+          "endTime": closeTime.value,
+          "isOpen24Hours": isOpen24Hours.value,
+          "isClosed": isShopClosed.value
+        },
+        "images": tempImageURL,
+      }).then((value) async {
+        await Get.find<BusinessController>().getListedBusinesses();
+        Get.back();
+        showMySnackbar(msg: 'Business updated Successfully');
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }

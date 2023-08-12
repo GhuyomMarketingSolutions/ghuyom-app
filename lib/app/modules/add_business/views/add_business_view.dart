@@ -519,7 +519,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 Expanded(
                   child: GhuyomRoundedBox(
                       height: 110.kh,
-                      onTap: () => controller.onAddPictureTap(1),
+                      onTap: () => controller.onAddPictureTap(0),
                       borderRadius: 5.kh,
                       isBorder: true,
                       borderWidth: 1.kh,
@@ -552,7 +552,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 Expanded(
                   child: GhuyomRoundedBox(
                       height: 110.kh,
-                      onTap: () => controller.onAddPictureTap(2),
+                      onTap: () => controller.onAddPictureTap(1),
                       borderRadius: 5.kh,
                       isBorder: true,
                       borderWidth: 1.kh,
@@ -589,7 +589,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 Expanded(
                   child: GhuyomRoundedBox(
                       height: 110.kh,
-                      onTap: () => controller.onAddPictureTap(3),
+                      onTap: () => controller.onAddPictureTap(2),
                       borderRadius: 5.kh,
                       isBorder: true,
                       borderWidth: 1.kh,
@@ -622,7 +622,7 @@ class AddBusinessView extends GetView<AddBusinessController> {
                 Expanded(
                   child: GhuyomRoundedBox(
                       height: 110.kh,
-                      onTap: () => controller.onAddPictureTap(4),
+                      onTap: () => controller.onAddPictureTap(3),
                       borderRadius: 5.kh,
                       isBorder: true,
                       borderWidth: 1.kh,

@@ -49,9 +49,9 @@ class BusinessView extends GetView<BusinessController> {
                   25.kheightBox,
                   LocaleKeys.added_businesses.tr.text600(18.kh),
                   20.kheightBox,
-                  Obx(
-                    () => Expanded(
-                      child: ListView.builder(
+                  Expanded(
+                    child: Obx(
+                      () => ListView.builder(
                           itemCount: controller.businesses.length,
                           itemBuilder: (context, index) {
                             return Column(
@@ -59,7 +59,8 @@ class BusinessView extends GetView<BusinessController> {
                                 Row(
                                   children: [
                                     GestureDetector(
-                                      onTap: () => controller.onEditTap(index),
+                                      onTap: () =>
+                                          controller.onEditTap(context),
                                       child: Row(
                                         children: [
                                           CommonImageView(
@@ -179,7 +180,7 @@ class BusinessView extends GetView<BusinessController> {
                                   ),
                                 ),
                               ],
-                            );
+                            ).paddingOnly(bottom: 16.kh);
                           }),
                     ),
                   ),

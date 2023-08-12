@@ -44,4 +44,10 @@ class APIManager {
   static Future<Response> deleteBusiness({required String businessId}) async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
           .delete(Endpoints.deleteBusiness + businessId);
+
+  ///Put API
+  static Future<Response> putBusiness(
+          {required String businessId, required dynamic body}) async =>
+      await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
+          .put(Endpoints.putBusiness + businessId, data: jsonEncode(body));
 }
