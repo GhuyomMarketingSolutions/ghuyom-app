@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:ghuyom/app/services/index.dart';
 
 import '../../../components/ghuyom_appbar.dart';
-import '../../../components/ghuyom_text_field.dart';
+
 import '../../../services/colors.dart';
 import '../controllers/edit_email_password_controller.dart';
 
@@ -17,7 +17,7 @@ class EditEmailPasswordView extends GetView<EditEmailPasswordController> {
       child: Scaffold(
           appBar: GhuyomAppbar(
             centerTitle: true,
-            title: LocaleKeys.change_email_password.tr,
+            title: LocaleKeys.change_password.tr,
             actions: [
               IconButton(
                 onPressed: () {},

@@ -44,7 +44,7 @@ class ListBusinessesView extends GetView<ListBusinessesController> {
                 child: Obx(() => controller.title.value
                     .text600(18.kh, textAlign: TextAlign.center)),
               ),
-              Expanded(flex: 2, child: Row())
+              const Expanded(flex: 2, child: Row())
             ],
           ),
         ),
@@ -54,74 +54,91 @@ class ListBusinessesView extends GetView<ListBusinessesController> {
           color: const Color(0xffD9D9D9),
           thickness: 1.kh,
         ),
-        Padding(
-          padding: EdgeInsets.all(12.kh),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: const Offset(0, 5),
-                  blurRadius: 15,
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-            child: GhuyomRoundedBox(
-              onTap: () => controller.onListedBusinessTap(),
-              color: Colors.grey,
-              borderRadius: 5.kh,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 120.kw,
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.white,
-                      // padding: paddingSymmetric(horizontal: 12.kw, vertical: 4.kh),
-                      padding: paddingOnly(
-                          left: 12.kw, right: 12.kw, top: 4.kh, bottom: 4.kh),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              'No Name'.text600(14.kh),
-                              const Spacer(),
-                              CommonImageView(
-                                height: 16.kh,
-                                width: 16.kh,
-                                svgPath: ImageConstant.svgHeartOff,
-                              )
-                            ],
-                          ),
-                          LocaleKeys.restaurants.tr
-                              .text500(10.kh, color: ColorUtil.mainColorBlue),
-                          4.kheightBox,
-                          'We offer professional haircuts for certain hair types or styles, such as textured hair or ...'
-                              .text400(8.kh),
-                          5.kheightBox,
-                          Row(
-                            children: [
-                              CommonImageView(
-                                height: 14.kh,
-                                width: 14.kh,
-                                svgPath: ImageConstant.svgMapPin,
+        Expanded(
+          child: controller.businesses.isEmpty
+              ? Center(
+                  child: 'No business available'.text500(14.kh),
+                )
+              : ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: controller.businesses.length,
+                  itemBuilder: (context, index) {
+                    return DecoratedBox(
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            offset: const Offset(0, 5),
+                            blurRadius: 15,
+                            spreadRadius: 0)
+                      ]),
+                      child: GhuyomRoundedBox(
+                        onTap: () => controller.onListedBusinessTap(index),
+                        borderRadius: 5.kh,
+                        child: Row(
+                          children: [
+                            CommonImageView(
+                              width: 120.kw,
+                              height: 94.kh,
+                              fit: BoxFit.cover,
+                              url: controller.businesses[index].images?[0],
+                            ),
+                            Expanded(
+                              child: Container(
+                                color: Colors.white,
+                                // padding: paddingSymmetric(horizontal: 12.kw, vertical: 4.kh),
+                                padding: paddingOnly(
+                                    left: 12.kw,
+                                    right: 12.kw,
+                                    top: 4.kh,
+                                    bottom: 4.kh),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Row(
+                                    //   children: [
+                                    (controller.businesses[index].name
+                                                ?.capitalize ??
+                                            '--')
+                                        .text600(14.kh),
+                                    //     const Spacer(),
+                                    //     CommonImageView(
+                                    //       height: 16.kh,
+                                    //       width: 16.kh,
+                                    //       svgPath: ImageConstant.svgHeartOff,
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    LocaleKeys.restaurants.tr.text500(10.kh,
+                                        color: ColorUtil.mainColorBlue),
+                                    4.kheightBox,
+                                    (controller.businesses[index].description ??
+                                            '--')
+                                        .text400(8.kh,
+                                            overflow: TextOverflow.ellipsis),
+                                    5.kheightBox,
+                                    Row(
+                                      children: [
+                                        CommonImageView(
+                                          height: 14.kh,
+                                          width: 14.kh,
+                                          svgPath: ImageConstant.svgMapPin,
+                                        ),
+                                        3.kwidthBox,
+                                        '${controller.calculateDistance(controller.businesses[index].location?.coordinates?[1], controller.businesses[index].location?.coordinates?[0]).toStringAsFixed(2)} KM from me'
+                                            .toString()
+                                            .text500(10.kh,
+                                                color: ColorUtil.mainColorPink)
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              3.kwidthBox,
-                              '500 m from me'.text500(10.kh,
-                                  color: ColorUtil.mainColorPink)
-                            ],
-                          )
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                    ).paddingAll(12.kh);
+                  }),
         )
       ],
     ));

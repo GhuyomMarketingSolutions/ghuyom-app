@@ -15,6 +15,9 @@ class GetStorageService extends GetxService {
   String get getName => _runData.read('name') ?? '';
   set setName(String val) => _runData.write('name', (val));
 
+  bool get getIsUser => _runData.read('user') ?? false;
+  set setIsUser(bool val) => _runData.write('user', (val));
+
   String get getEncjwToken =>
       decryptAESCryptoJS(_runData.read('jwToken') ?? '') ?? '';
   set setEncjwToken(String val) =>

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghuyom/app/modules/add_service/views/add_service.dart';
 
+import '../../../services/colors.dart';
 import '../../../services/index.dart';
 import '../controllers/add_service_controller.dart';
 
@@ -10,9 +11,10 @@ class AddServiceView extends GetView<AddServiceController> {
   const AddServiceView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // print(controller.businessId);
     return Scaffold(
         bottomNavigationBar: GhuyomButton(
-          onPressed: () {},
+          onPressed: () => controller.onServicePageDone(),
           label: LocaleKeys.done.tr,
         ).paddingOnly(left: 20.kw, right: 20.kw, bottom: 30.kh),
         body: Column(
@@ -32,7 +34,7 @@ class AddServiceView extends GetView<AddServiceController> {
                         borderColor: const Color(0xffD8DADC),
                         borderRadius: 10.kh,
                         borderWidth: 1.kh,
-                        onTap: () => Get.back(),
+                        onTap: () => controller.onServicePageDone(),
                         child: Center(
                           child: CommonImageView(
                             height: 15.kh,
@@ -51,67 +53,78 @@ class AddServiceView extends GetView<AddServiceController> {
               ],
             ),
             30.kheightBox,
-            // Row(
-            //   children: [
-            //     CommonImageView(
-            //       svgPath: ImageConstant.svgEdit,
-            //       height: 16.kh,
-            //       width: 16.kh,
-            //     ),
-            //     4.kwidthBox,
-            //     LocaleKeys.edit.tr
-            //         .text400(14.kh, color: ColorUtil.mainColorGreen),
-            //     const Spacer(),
-            //     GestureDetector(
-            //       // onTap: () =>
-            //       //     controller.onDeleteBusinessTap(index),
-            //       child:
-            //           LocaleKeys.delete.tr.text400(14.kh, color: ColorUtil.red),
-            //     )
-            //   ],
-            // ),
-            // 8.kheightBox,
-            // DecoratedBox(
-            //   decoration: const BoxDecoration(boxShadow: [
-            //     BoxShadow(
-            //       color: Colors.grey,
-            //       offset: Offset(0.5, 0.5),
-            //       blurRadius: 20.0,
-            //       spreadRadius: .50,
-            //     ),
-            //   ]),
-            //   child: GhuyomRoundedBox(
-            //       child: Row(
-            //     children: [
-            //       GhuyomRoundedBox(
-            //         color: Colors.grey,
-            //         height: 90.kh,
-            //         width: 99.kw,
-            //         child: const SizedBox.shrink(),
-            //       ),
-            //       25.kwidthBox,
-            //       Expanded(
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.stretch,
-            //           children: [
-            //             Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 'Haircut'.text500(16.kh),
-            //                 '\$ 30'
-            //                     .text600(16.kh, color: ColorUtil.mainColorGreen)
-            //               ],
-            //             ),
-            //             8.kheightBox,
-            //             'We offer profesional haircuts for certain hair types or styles, such as textured hair or layered haircuts'
-            //                 .text400(10.kh, color: ColorUtil.grey)
-            //           ],
-            //         ),
-            //       )
-            //     ],
-            //   ).paddingAll(11.kh)),
-            // ),
-            // 30.kheightBox,
+            Obx(
+              () => ListView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemCount: controller.services.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: GestureDetector(
+                            onTap: () => controller.onDeleteBusinessTap(index),
+                            child: LocaleKeys.delete.tr
+                                .text400(14.kh, color: ColorUtil.red),
+                          ),
+                        ),
+                        8.kheightBox,
+                        DecoratedBox(
+                          decoration: const BoxDecoration(boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(0.5, 0.5),
+                              blurRadius: 20.0,
+                              spreadRadius: .50,
+                            ),
+                          ]),
+                          child: GhuyomRoundedBox(
+                              child: Row(
+                            children: [
+                              GhuyomRoundedBox(
+                                color: Colors.grey,
+                                height: 90.kh,
+                                width: 99.kw,
+                                child: CommonImageView(
+                                    url: controller.services[index].image),
+                              ),
+                              25.kwidthBox,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: controller.services[index].name
+                                              .toString()
+                                              .text500(16.kh),
+                                        ),
+                                        '\$ ${controller.services[index].price}'
+                                            .text600(16.kh,
+                                                color: ColorUtil.mainColorGreen)
+                                      ],
+                                    ),
+                                    8.kheightBox,
+                                    controller.services[index].description
+                                        .toString()
+                                        .text400(10.kh, color: ColorUtil.grey)
+                                  ],
+                                ),
+                              )
+                            ],
+                          ).paddingAll(11.kh)),
+                        ),
+                        30.kheightBox,
+                      ],
+                    );
+                  }),
+            ),
+            30.kheightBox,
             Align(
               alignment: Alignment.centerLeft,
               child: GhuyomButton(

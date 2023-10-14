@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -33,23 +34,21 @@ class AppInterceptors extends Interceptor {
   @override
   FutureOr<dynamic> onResponse(
       Response response, ResponseInterceptorHandler handler) {
-    // TODO: implement onResponse
     super.onResponse(response, handler);
     isOverlayLoader ? DialogHelper.hideDialog() : null;
   }
 
   @override
   Future<dynamic> onError(
-      DioError dioError, ErrorInterceptorHandler handler) async {
-    // TODO: implement onError
-    super.onError(dioError, handler);
+      DioException err, ErrorInterceptorHandler handler) async {
+    super.onError(err, handler);
 
     try {
-      final errorMessage = DioExceptions.fromDioError(dioError).toString();
+      final errorMessage = DioExceptions.fromDioError(err).toString();
       isOverlayLoader ? DialogHelper.hideDialog() : null;
       showSnakbar == true ? showMySnackbar(msg: errorMessage) : null;
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
 
     /* if ((dioError.response?.statusCode == 401 && dioError.response?.data['message'] == "invalid token")) {
@@ -57,17 +56,17 @@ class AppInterceptors extends Interceptor {
         return handler.resolve(await retry(dioError.requestOptions));
       }
     }*/
-    try {
-      if (dioError.response!.data['message'] ==
-          "Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired). See https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve an ID token.") {
-        ///TODO:if refreshToken() method is used
-        // if (await refreshToken()) {
-        //   return handler.resolve(await retry(dioError.requestOptions));
-        // }
-      }
-    } catch (e) {
-      print(e);
-    }
+    // try {
+    //   if (err.response!.data['message'] ==
+    //       "Firebase ID token has expired. Get a fresh ID token from your client app and try again (auth/id-token-expired). See https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve an ID token.") {
+
+    //     // if (await refreshToken()) {
+    //     //   return handler.resolve(await retry(dioError.requestOptions));
+    //     // }
+    //   }
+    // } catch (e) {
+    //   log(e.toString());
+    // }
 
     return handler.next;
   }
@@ -104,7 +103,7 @@ class Helpers {
       } catch (e) {
         showMySnackbar(msg: "Session Expired. Please Login Again");
         Get.find<GetStorageService>().logout();
-        Get.offAllNamed(Routes.LOGIN);
+        Get.offAllNamed(Routes.SPLASH);
         return false;
       }
     }

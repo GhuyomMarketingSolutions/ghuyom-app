@@ -1,10 +1,6 @@
 import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:ghuyom/app/services/dio/api_service.dart';
-
 import '../../../models/get_all_businesses_model.dart';
 import '../../../routes/app_pages.dart';
 
@@ -29,8 +25,9 @@ class BusinessController extends GetxController {
 
   getListedBusinesses() async {
     try {
-      await APIManager.getAllBusiness().then((value) => businesses.value =
+      await APIManager.getOwnerBusiness().then((value) => businesses.value =
           GetAllBusinessesModel.fromJson(value.data).businesses ?? []);
+      // print(businesses[0].id);
     } catch (e) {
       log(e.toString());
     }
@@ -49,9 +46,9 @@ class BusinessController extends GetxController {
     Get.toNamed(Routes.ADD_BUSINESS);
   }
 
-  onEditTap(BuildContext context) async {
-
-
-    // Get.toNamed(Routes.ADD_BUSINESS, arguments: businesses[index]);
+  onEditTap(int index, int type) async {
+    type == 0
+        ? Get.toNamed(Routes.ADD_BUSINESS, arguments: businesses[index])
+        : Get.toNamed(Routes.ADD_SERVICE, arguments: businesses[index].id);
   }
 }

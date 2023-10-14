@@ -267,18 +267,13 @@ class AddBusinessView extends GetView<AddBusinessController> {
                     Obx(
                       () => Checkbox(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.kh),
-                        ),
+                            borderRadius: BorderRadius.circular(5.kh)),
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         splashRadius: 0,
                         visualDensity: VisualDensity.compact,
-                        activeColor: Colors.white,
-                        side: BorderSide(
-                          width: 1.kh,
-                          color: Colors.black,
-                        ),
-                        fillColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.black),
+                        activeColor: Colors.black,
+                        side: BorderSide(width: 1.kh, color: Colors.black),
+                        checkColor: Colors.black,
                         value: controller.isOnWhatsapp.value,
                         onChanged: (value) => controller.onCheckTap(value, 0),
                       ),
@@ -397,13 +392,11 @@ class AddBusinessView extends GetView<AddBusinessController> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         splashRadius: 0,
                         visualDensity: VisualDensity.compact,
-                        activeColor: Colors.white,
+                        activeColor: Colors.black,
                         side: BorderSide(
                           width: 1.kh,
                           color: Colors.black,
                         ),
-                        fillColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.black),
                         value: controller.isOpen24Hours.value,
                         onChanged: (value) => controller.onCheckTap(value, 1),
                       ),
@@ -418,13 +411,8 @@ class AddBusinessView extends GetView<AddBusinessController> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         splashRadius: 0,
                         visualDensity: VisualDensity.compact,
-                        activeColor: Colors.white,
-                        side: BorderSide(
-                          width: 1.kh,
-                          color: Colors.black,
-                        ),
-                        fillColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.black),
+                        activeColor: Colors.black,
+                        side: BorderSide(width: 1.kh, color: Colors.black),
                         value: controller.isShopClosed.value,
                         onChanged: (value) => controller.onCheckTap(value, 2),
                       ),
@@ -482,13 +470,11 @@ class AddBusinessView extends GetView<AddBusinessController> {
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         splashRadius: 0,
                         visualDensity: VisualDensity.compact,
-                        activeColor: Colors.white,
+                        activeColor: Colors.black,
                         side: BorderSide(
                           width: 1.kh,
                           color: Colors.black,
                         ),
-                        fillColor: MaterialStateProperty.resolveWith(
-                            (states) => Colors.black),
                         value: controller.isCheck3.value,
                         onChanged: (value) => controller.onCheckTap(value, 3),
                       ),

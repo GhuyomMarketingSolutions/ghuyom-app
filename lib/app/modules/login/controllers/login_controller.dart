@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghuyom/app/routes/app_pages.dart';
 import 'package:ghuyom/generated/locales.g.dart';
+import 'package:ghuyom/main.dart';
 
 import '../../../services/auth.dart';
 import '../../../services/dio/api_service.dart';
@@ -27,18 +28,18 @@ class LoginController extends GetxController with GetTickerProviderStateMixin {
     tabController = TabController(length: 2, vsync: this);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
 
   onNumberChange(String value) {
-    if (value.length == 10) {
+    if (value.length == 8) {
       isButtonActive.value = true;
     } else {
       isButtonActive.value = false;
@@ -61,9 +62,9 @@ class LoginController extends GetxController with GetTickerProviderStateMixin {
 
   onNumberContinueTap() async {
     if (await Get.find<AuthService>()
-        .mobileOtp(phoneno: '+91${phoneController.text}')) {
+        .mobileOtp(phoneno: '+974${phoneController.text}')) {
       Get.toNamed(Routes.OTP,
-          parameters: {'phone': '+91${phoneController.text}'});
+          parameters: {'phone': '+974${phoneController.text}'});
     }
   }
 
@@ -84,6 +85,7 @@ class LoginController extends GetxController with GetTickerProviderStateMixin {
           ? {
               Get.find<GetStorageService>().setName =
                   value.data['user']['name'],
+              userName.value = Get.find<GetStorageService>().getName,
               Get.toNamed(Routes.NAVIGATION)
             }
           : showMySnackbar(msg: LocaleKeys.something_went_wrong.tr));

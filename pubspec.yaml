@@ -25,14 +25,32 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   auto_size_text: ^3.0.0
   smooth_page_indicator: ^1.1.0
-  flutter_typeahead: ^4.6.1
+  flutter_typeahead: ^4.6.2
   image_picker: ^0.8.9
- 
+  url_launcher: ^6.1.12
+  geolocator: ^10.0.0
+  geocoding: ^2.1.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_paypal: ^0.2.0
+
+
+
+
 
 dev_dependencies: 
   flutter_lints: 2.0.1
   flutter_test: 
     sdk: flutter
+
+flutter_launcher_icons:
+   android: "launcher_icon"
+   ios: true
+   image_path: "assets/images/app_icon.png"
+   min_sdk_android: 21 # android min sdk min:16, default 21
+   adaptive_icon_background: "#ffffff"
+   background_color_ios: "#ffffff"
+   remove_alpha_ios: true
+
 
 flutter: 
   uses-material-design: true

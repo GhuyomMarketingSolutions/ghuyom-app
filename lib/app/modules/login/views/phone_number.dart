@@ -22,7 +22,7 @@ class PhoneNumber extends GetView<LoginController> {
           controller: controller.phoneController,
           inputFormatters: [
             //TODO:limit to 8
-            LengthLimitingTextInputFormatter(10),
+            LengthLimitingTextInputFormatter(8),
           ],
           onChanged: (value) => controller.onNumberChange(value),
           keyboardType: TextInputType.number,

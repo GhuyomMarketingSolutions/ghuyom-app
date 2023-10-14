@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
@@ -21,7 +22,7 @@ String? encryptAESCryptoJS(String plainText) {
         createUint8ListFromString("Salted__") + salt + encrypted.bytes);
     return base64.encode(encryptedBytesWithSalt);
   } catch (error) {
-    print(error);
+    log(error.toString() as num);
   }
   return null;
 }
@@ -43,7 +44,7 @@ String? decryptAESCryptoJS(String encrypted) {
         encrypter.decrypt64(base64.encode(encryptedBytes), iv: iv);
     return decrypted;
   } catch (error) {
-    print(error);
+    log(error.toString() as num);
   }
   return null;
 }

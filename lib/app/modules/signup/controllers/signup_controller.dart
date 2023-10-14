@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ghuyom/app/modules/signup/views/signup_phone.dart';
@@ -18,20 +17,20 @@ class SignupController extends GetxController {
   RxBool isPhoneButtonActive = false.obs;
   RxBool isObscure = true.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
 
   emailValidator(String? value) {
     if (!(value?.isEmail ?? true)) {
@@ -53,7 +52,7 @@ class SignupController extends GetxController {
   }
 
   onNumberChange(String value) {
-    if (value.length == 10) {
+    if (value.length == 8) {
       isPhoneButtonActive.value = true;
     } else {
       isPhoneButtonActive.value = false;
@@ -89,7 +88,7 @@ class SignupController extends GetxController {
 
   onPhoneContinueTap() async {
     if (await Get.find<AuthService>()
-        .mobileOtp(phoneno: '+91${phoneController.text}')) {
+        .mobileOtp(phoneno: '+974${phoneController.text}')) {
       Get.toNamed(Routes.OTP, parameters: {
         'phone': '+91${phoneController.text}',
         'newAccount': 'newAccount'

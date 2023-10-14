@@ -25,6 +25,7 @@ class CreateAccountView extends GetView<CreateAccountController> {
             ),
             // resizeToAvoidBottomInset: false,
             body: SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Padding(
                 padding: 20.paddingHorizontal,
                 child: Form(

@@ -10,17 +10,16 @@ import 'app/services/storage.dart';
 import 'firebase_options.dart';
 import 'generated/locales.g.dart';
 
+RxString userName = Get.find<GetStorageService>().getName.obs;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   await initGetServices();
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-    ],
-  );
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   return runApp(GestureDetector(
     onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -31,7 +30,6 @@ Future<void> main() async {
       locale: const Locale('en', 'US'),
       translationsKeys: AppTranslation.translations,
       debugShowCheckedModeBanner: false,
-      title: "Ticket Checker",
       initialRoute: AppPages.INITIAL,
       initialBinding: HomeBinding(),
       getPages: AppPages.routes,

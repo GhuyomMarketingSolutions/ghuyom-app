@@ -138,7 +138,7 @@ class Location {
 }
 
 class WorkingHours {
-  final Days? days;
+  final List<int>? days;
   final String? startTime;
   final String? endTime;
   final bool? isOpen24Hours;
@@ -153,16 +153,14 @@ class WorkingHours {
   });
 
   WorkingHours.fromJson(Map<String, dynamic> json)
-      : days = (json['days'] as Map<String, dynamic>?) != null
-            ? Days.fromJson(json['days'] as Map<String, dynamic>)
-            : null,
+      : days = (json['days'] as List?)?.map((dynamic e) => e as int).toList(),
         startTime = json['startTime'] as String?,
         endTime = json['endTime'] as String?,
         isOpen24Hours = json['isOpen24Hours'] as bool?,
         isClosed = json['isClosed'] as bool?;
 
   Map<String, dynamic> toJson() => {
-        'days': days?.toJson(),
+        'days': days,
         'startTime': startTime,
         'endTime': endTime,
         'isOpen24Hours': isOpen24Hours,

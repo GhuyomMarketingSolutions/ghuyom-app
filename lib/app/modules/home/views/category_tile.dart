@@ -13,8 +13,6 @@ class CategoryTile extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GhuyomRoundedBox(
         onTap: () => controller.onCategoryTileTap(label),
-        // height: 13.h,
-        // height: 100.kh,
         isBorder: true,
         borderWidth: 0.5.kh,
         borderColor: const Color(0xffD9D9D9),

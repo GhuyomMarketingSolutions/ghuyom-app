@@ -76,11 +76,15 @@ EdgeInsets paddingSymmetric({
 extension AppText on String {
   String get string => this;
 
-  Widget text400(double fontSize, {Color? color, TextAlign? textAlign}) => Text(
+  Widget text400(double fontSize,
+          {Color? color, TextAlign? textAlign, TextOverflow? overflow}) =>
+      Text(
         string,
         textAlign: textAlign,
         style: TextStyleUtil.manrope400(
-            fontSize: fontSize, color: color ?? Colors.black),
+            fontSize: fontSize,
+            color: color ?? Colors.black,
+            overflow: overflow),
       );
 
   Widget text500(double fontSize,

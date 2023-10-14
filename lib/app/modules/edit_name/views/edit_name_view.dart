@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:ghuyom/app/components/ghuyom_text_field.dart';
+
 import 'package:ghuyom/app/services/colors.dart';
 import 'package:ghuyom/app/services/index.dart';
 
@@ -20,7 +20,7 @@ class EditNameView extends GetView<EditNameController> {
             title: LocaleKeys.your_name.tr,
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () => controller.onCorrectTap(),
                 icon: Icon(
                   Icons.check,
                   color: ColorUtil.mainColorBlue,
@@ -39,16 +39,20 @@ class EditNameView extends GetView<EditNameController> {
                 color: const Color(0xffd9d9d9),
               ),
               40.kheightBox,
-              Padding(
-                padding: 20.paddingHorizontal,
+              Form(
+                key: controller.formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     LocaleKeys.name.tr.text500(14.kh),
                     6.kheightBox,
-                    GhuyomTextField(hint: LocaleKeys.your_name.tr),
+                    GhuyomTextField(
+                      validator: (value) => controller.commonValidator(value),
+                      hint: LocaleKeys.your_name.tr,
+                      controller: controller.nameController,
+                    ),
                   ],
-                ),
+                ).paddingSymmetric(horizontal: 20.kw),
               )
             ],
           )),

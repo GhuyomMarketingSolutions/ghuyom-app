@@ -8,20 +8,20 @@ import 'package:ghuyom/app/services/index.dart';
 class SubscriptionController extends GetxController {
   RxInt radioGrpValue = 0.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
 
   onRadioTap(int value) {
     radioGrpValue.value = value;

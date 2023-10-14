@@ -91,6 +91,7 @@ class AddService extends GetView<AddServiceController> {
                 SizedBox(
                   width: 50.kw,
                   child: TextFormField(
+                    controller: controller.priceController,
                     keyboardType: TextInputType.number,
                     validator: (value) => controller.commonValidator(value),
                     textAlignVertical: TextAlignVertical.center,

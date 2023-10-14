@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:ghuyom/app/services/storage.dart';
+
+import 'package:ghuyom/main.dart';
 
 import '../../../components/ghuyom_appbar.dart';
 import '../../../services/colors.dart';
@@ -34,9 +35,10 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Get.find<GetStorageService>()
-                        .getName
-                        .text400(16.kh, color: const Color(0xff909090)),
+                    Obx(
+                      () => userName.value
+                          .text400(16.kh, color: const Color(0xff909090)),
+                    ),
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 17.kh,
@@ -53,8 +55,8 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
             Padding(
               padding: 20.paddingHorizontal,
               child: ListTile(
-                onTap: () => controller.onChangeEmailPassTap(),
-                title: LocaleKeys.change_email_password.tr.text400(16.kh),
+                onTap: () => controller.onChangePassTap(),
+                title: LocaleKeys.change_password.tr.text400(16.kh),
                 trailing: Icon(
                   Icons.arrow_forward_ios,
                   size: 17.kh,

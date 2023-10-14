@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TextStyleUtil {
-  static TextStyle manrope400({
-    Color color = Colors.black,
-    required double fontSize,
-  }) {
+  static TextStyle manrope400(
+      {Color color = Colors.black,
+      required double fontSize,
+      TextOverflow? overflow}) {
     return TextStyle(
+      overflow: overflow,
       fontFamily: 'Manrope',
       color: color,
       fontSize: fontSize,

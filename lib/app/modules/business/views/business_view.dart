@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ghuyom/app/components/custom_focused.menu.dart';
 import 'package:ghuyom/app/services/colors.dart';
 
 import 'package:ghuyom/app/services/index.dart';
@@ -58,9 +59,19 @@ class BusinessView extends GetView<BusinessController> {
                               children: [
                                 Row(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () =>
-                                          controller.onEditTap(context),
+                                    FocusedMenuHolder(
+                                      menuItems: [
+                                        FocusedMenuItem(
+                                            title: LocaleKeys.edit_busi.tr
+                                                .text600(12.kh),
+                                            onPressed: () =>
+                                                controller.onEditTap(index, 0)),
+                                        FocusedMenuItem(
+                                            title: LocaleKeys.edit_services.tr
+                                                .text600(12.kh),
+                                            onPressed: () =>
+                                                controller.onEditTap(index, 1))
+                                      ],
                                       child: Row(
                                         children: [
                                           CommonImageView(
@@ -134,9 +145,10 @@ class BusinessView extends GetView<BusinessController> {
                                                         color: ColorUtil
                                                             .mainColorBlue),
                                                 4.kheightBox,
-                                                '${controller.businesses[index].description}'
-                                                    .text400(8.kh),
-                                                5.kheightBox,
+                                                Expanded(
+                                                    child:
+                                                        '${controller.businesses[index].description}'
+                                                            .text400(8.kh)),
                                                 Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,

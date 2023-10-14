@@ -38,14 +38,18 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/subscription/bindings/subscription_binding.dart';
 import '../modules/subscription/views/subscription_view.dart';
+import '../modules/user_navigation/bindings/user_navigation_binding.dart';
+import '../modules/user_navigation/views/user_navigation_view.dart';
+
+// ignore_for_file: constant_identifier_names
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ADMIN_PANEL;
-  // static const INITIAL = Routes.SPLASH;
+  // static const INITIAL = Routes.ADMIN_PANEL;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -142,6 +146,11 @@ class AppPages {
       name: _Paths.ADD_SERVICE,
       page: () => const AddServiceView(),
       binding: AddServiceBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_NAVIGATION,
+      page: () => const UserNavigationView(),
+      binding: UserNavigationBinding(),
     ),
   ];
 }

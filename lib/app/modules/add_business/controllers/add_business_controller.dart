@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -56,14 +56,14 @@ class AddBusinessController extends GetxController {
   RxBool isCheck3 = false.obs;
 
   RxList<String> imageUrl = <String>['', '', '', ''].obs;
-  List<String> tempImageURL = [];
+  List<String> tempImageURL = ['', '', '', ''];
 
   File? file1, file2, file3, file4;
 
   RxList<String> days = <String>['M', 'T', 'W', 'T', 'F', 'S', 'S'].obs;
 
   RxList<bool> daysBool =
-      <bool>[false, true, false, false, false, false, false].obs;
+      <bool>[false, false, false, false, false, false, false].obs;
 
   List<DropdownMenuItem<String>> dropdownItems = [
     DropdownMenuItem(
@@ -181,7 +181,6 @@ class AddBusinessController extends GetxController {
         for (var i = 0; i < 5; i++) {
           daysBool[i] = value ?? false;
         }
-
         isCheck3.value = value ?? false;
         break;
       default:
@@ -284,7 +283,8 @@ class AddBusinessController extends GetxController {
         'type': 'business'
       })).then((value) async {
         if (value.data['status']) {
-          imageUrl = value.data['urls']['images'];
+          imageUrl.value = List.generate(value.data['urls']['images'].length,
+              (index) => value.data['urls']['images'][index].toString());
 
           await postAddBusiness();
         }
@@ -308,11 +308,11 @@ class AddBusinessController extends GetxController {
       })).then((value) async {
         if (value.data['status']) {
           tempImageURL.removeWhere((element) => [''].contains(element));
-          print(tempImageURL);
+
           List<String> data =
               FileUploadModel.fromJson(value.data).urls?.images ?? [];
           tempImageURL.addAll(data);
-          print(tempImageURL);
+
           await patchBusiness();
         }
       });
@@ -327,6 +327,13 @@ class AddBusinessController extends GetxController {
   }
 
   postAddBusiness() async {
+    List x = [];
+    for (var i = 0; i < daysBool.length; i++) {
+      if (daysBool[i] == true) {
+        x.add(i + 1);
+      }
+    }
+
     try {
       await APIManager.postAddBusiness(body: {
         "name": businessNameController.text,
@@ -339,15 +346,7 @@ class AddBusinessController extends GetxController {
         "website": websiteController.text,
         "phoneNumber": phoneNos,
         "workingHours": {
-          "days": {
-            "monday": daysBool[0],
-            "tuesday": daysBool[1],
-            "wednesday": daysBool[2],
-            "thursday": daysBool[3],
-            "friday": daysBool[4],
-            "saturday": daysBool[5],
-            "sunday": daysBool[6]
-          },
+          "days": x,
           "startTime": openTime.value,
           "endTime": closeTime.value,
           "isOpen24Hours": isOpen24Hours.value,
@@ -356,8 +355,12 @@ class AddBusinessController extends GetxController {
         "images": imageUrl,
       }).then((value) {
         value.data['status']
-            ? Get.toNamed(Routes.ADD_SERVICE,
-                arguments: value.data['business']['_id'])
+            // ? Get.toNamed(Routes.ADD_SERVICE,
+            //     arguments: value.data['business']['_id'])
+            ? Get.offNamedUntil(
+                Routes.ADD_SERVICE,
+                arguments: value.data['business']['_id'],
+                ModalRoute.withName(Routes.NAVIGATION))
             : null;
       });
     } catch (e) {
@@ -401,6 +404,48 @@ class AddBusinessController extends GetxController {
   }
 
   editBusiness() {
+    int xyz = business?.workingHours?.days?.length ?? 0;
+    List x = [];
+    for (var i = 0; i < xyz; i++) {
+      switch (business?.workingHours?.days?[i]) {
+        case 1:
+          x.add(1);
+          daysBool[0] = true;
+          break;
+        case 2:
+          x.add(2);
+          daysBool[1] = true;
+
+          break;
+        case 3:
+          x.add(3);
+          daysBool[2] = true;
+
+          break;
+        case 4:
+          x.add(4);
+          daysBool[3] = true;
+
+          break;
+        case 5:
+          x.add(5);
+          daysBool[4] = true;
+
+          break;
+        case 6:
+          x.add(6);
+          daysBool[5] = true;
+
+          break;
+        case 7:
+          x.add(7);
+          daysBool[6] = true;
+
+          break;
+        default:
+      }
+    }
+
     businessNameController.text = business?.name ?? '';
     dropDownValue.value = business?.category ?? '';
     subcategoryController.text = business?.subCategory ?? '';
@@ -418,13 +463,7 @@ class AddBusinessController extends GetxController {
       }
     }
     isOnWhatsapp.value = business?.phoneNumber?[0].isWhatsappAvailable ?? false;
-    daysBool[0] = business?.workingHours?.days?.monday ?? false;
-    daysBool[1] = business?.workingHours?.days?.tuesday ?? false;
-    daysBool[2] = business?.workingHours?.days?.wednesday ?? false;
-    daysBool[3] = business?.workingHours?.days?.thursday ?? false;
-    daysBool[4] = business?.workingHours?.days?.friday ?? false;
-    daysBool[5] = business?.workingHours?.days?.saturday ?? false;
-    daysBool[6] = business?.workingHours?.days?.sunday ?? false;
+    // daysBool = business?.workingHours?.days ?? [];
     isOpen24Hours.value = business?.workingHours?.isOpen24Hours ?? false;
     isShopClosed.value = business?.workingHours?.isClosed ?? false;
     openTime.value = business?.workingHours?.startTime ?? '';
@@ -434,6 +473,12 @@ class AddBusinessController extends GetxController {
   }
 
   patchBusiness() async {
+    List x = [];
+    for (var i = 0; i < daysBool.length; i++) {
+      if (daysBool[i] == true) {
+        x.add(i + 1);
+      }
+    }
     try {
       await APIManager.putBusiness(businessId: business?.id ?? '', body: {
         "name": businessNameController.text,
@@ -446,15 +491,7 @@ class AddBusinessController extends GetxController {
         "website": websiteController.text,
         "phoneNumber": phoneNos,
         "workingHours": {
-          "days": {
-            "monday": daysBool[0],
-            "tuesday": daysBool[1],
-            "wednesday": daysBool[2],
-            "thursday": daysBool[3],
-            "friday": daysBool[4],
-            "saturday": daysBool[5],
-            "sunday": daysBool[6]
-          },
+          "days": x,
           "startTime": openTime.value,
           "endTime": closeTime.value,
           "isOpen24Hours": isOpen24Hours.value,

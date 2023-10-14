@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
@@ -6,10 +7,12 @@ import 'package:ghuyom/app/components/common_image_view.dart';
 import 'package:ghuyom/app/components/ghuyom_rounded_box.dart';
 import 'package:ghuyom/app/constants/image_constant.dart';
 import 'package:ghuyom/app/services/responsive_size.dart';
+import 'package:ghuyom/app/services/snackbar.dart';
 import 'package:ghuyom/app/services/text_style_util.dart';
 
 import '../../../../generated/locales.g.dart';
 
+import '../../../services/auth.dart';
 import '../controllers/otp_controller.dart';
 
 class OtpView extends GetView<OtpController> {
@@ -96,6 +99,14 @@ class OtpView extends GetView<OtpController> {
                               fontSize: 16.kh,
                               color: Colors.black.withOpacity(0.7))),
                       TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              (await Get.find<AuthService>().mobileOtp(
+                                      phoneno: Get.parameters['phone'] ?? ''))
+                                  ? showMySnackbar(msg: 'OTP sent')
+                                  : showMySnackbar(
+                                      msg: LocaleKeys.something_went_wrong.tr);
+                            },
                           text: LocaleKeys.Resend.tr,
                           style: TextStyleUtil.manrope600(
                               fontSize: 16.kh, color: Colors.black))

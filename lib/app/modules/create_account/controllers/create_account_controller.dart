@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:ghuyom/generated/locales.g.dart';
+import 'package:ghuyom/main.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../services/dio/api_service.dart';
@@ -19,20 +20,20 @@ class CreateAccountController extends GetxController {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  // }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  // @override
+  // void onReady() {
+  //   super.onReady();
+  // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  // }
 
   onRadioTap(int? value) {
     radioVal.value = value ?? 0;
@@ -75,6 +76,7 @@ class CreateAccountController extends GetxController {
           ? {
               Get.find<GetStorageService>().setName =
                   value.data['user']['name'],
+              userName.value = Get.find<GetStorageService>().getName,
               Get.toNamed(Routes.NAVIGATION)
             }
           : showMySnackbar(msg: LocaleKeys.something_went_wrong.tr));

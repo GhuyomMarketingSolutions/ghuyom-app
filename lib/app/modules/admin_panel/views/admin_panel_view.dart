@@ -1,4 +1,4 @@
-import 'dart:developer';
+// ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
 
@@ -52,7 +52,7 @@ class AdminPanelView extends GetView<AdminPanelController> {
                 AdminPanelButton(
                   label: 'Print Token',
                   onPressed: () =>
-                      log(Get.find<GetStorageService>().getEncjwToken),
+                      print(Get.find<GetStorageService>().getEncjwToken),
                 ),
               ],
             ),

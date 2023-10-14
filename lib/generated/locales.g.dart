@@ -12,7 +12,9 @@ class LocaleKeys {
   LocaleKeys._();
   static const ghuyom = 'ghuyom';
   static const log_in = 'log_in';
-  static const continue_without_log_in = 'continue_without_log_in';
+  static const business_login = 'business_login';
+  static const join_as_business = 'join_as_business';
+  static const browse_as_guest = 'browse_as_guest';
   static const log_in_with = 'log_in_with';
   static const phone_number = 'phone_number';
   static const email = 'email';
@@ -81,7 +83,6 @@ class LocaleKeys {
   static const terms_of_use = 'terms_of_use';
   static const privacy_policy = 'privacy_policy';
   static const change_password = 'change_password';
-  static const change_email_password = 'change_email_password';
   static const choose_your_plan = 'choose_your_plan';
   static const monthly = 'monthly';
   static const days_free = 'days_free';
@@ -140,7 +141,7 @@ class LocaleKeys {
   static const add_picture = 'add_picture';
   static const the_app_accepts = 'the_app_accepts';
   static const change = 'change';
-  static const expand_your = 'expand_your';
+  static const change_to_boost = 'change_to_boost';
   static const minimum_eight_characters = 'minimum_eight_characters';
   static const continue_with_phone = 'continue_with_phone';
   static const something_went_wrong = 'something_went_wrong';
@@ -160,13 +161,26 @@ class LocaleKeys {
   static const enter_a_name = 'enter_a_name';
   static const please_add_picture = 'please_add_picture';
   static const proper_number = 'proper_number';
+  static const edit_busi = 'edit_busi';
+  static const edit_services = 'edit_services';
+  static const directions = 'directions';
+  static const Monday = 'Monday';
+  static const tuesday = 'tuesday';
+  static const wednesday = 'wednesday';
+  static const thursday = 'thursday';
+  static const friday = 'friday';
+  static const saturday = 'saturday';
+  static const sunday = 'sunday';
+  static const no_result = 'no_result';
 }
 
 class Locales {
   static const en_US = {
     'ghuyom': 'GHUYOM',
     'log_in': 'Log in',
-    'continue_without_log_in': 'Continue without Log In',
+    'business_login': 'Business Login',
+    'join_as_business': 'Join As Business',
+    'browse_as_guest': 'Browse as Guest',
     'log_in_with': 'Log in with your phone number or email.',
     'phone_number': 'Phone number',
     'email': 'Email',
@@ -234,8 +248,7 @@ class Locales {
     'payment': 'Payment',
     'terms_of_use': 'Terms of Use',
     'privacy_policy': 'Privacy Policy',
-    'change_password': 'Change password',
-    'change_email_password': 'Change Email & Password',
+    'change_password': 'Change password?',
     'choose_your_plan': 'Choose your plan',
     'monthly': 'Monthly',
     'days_free': '14 days free trial',
@@ -302,7 +315,7 @@ class Locales {
     'the_app_accepts':
         'The app accepts images in various formats, such as JPEG, PNG, SVG, etc., with a max file size of 1 MB',
     'change': 'Change',
-    'expand_your': 'Expand Your Reach with Our Subscription',
+    'change_to_boost': 'Change to Boost Your Business with Us',
     'minimum_eight_characters':
         'Minimum eight characters,\n at least one uppercase letter,\n one lowercase letter,\n one number and one special character',
     'continue_with_phone': 'Continue with phone',
@@ -323,5 +336,16 @@ class Locales {
     'enter_a_name': 'Enter a name of your service',
     'please_add_picture': 'Please add a picture',
     'proper_number': 'Please add a proper phone number',
+    'edit_busi': 'Edit Business',
+    'edit_services': 'Edit Services',
+    'directions': 'Directions',
+    'Monday': 'Monday',
+    'tuesday': 'Tuesday',
+    'wednesday': 'Wednesday',
+    'thursday': 'Thursday',
+    'friday': 'Friday',
+    'saturday': 'Saturday',
+    'sunday': 'Sunday',
+    'no_result': 'No Result Found',
   };
 }

@@ -6,16 +6,26 @@ import 'package:ghuyom/generated/locales.g.dart';
 
 import '../../../routes/app_pages.dart';
 
+import '../views/terms.dart';
+
 class ProfileController extends GetxController {
   List<Map<String, String>> data = [
     {'icon': ImageConstant.svgAccount, 'label': LocaleKeys.account_settings.tr},
-    {
-      'icon': ImageConstant.svgSubscription,
-      'label': LocaleKeys.subscription.tr
-    },
-    {'icon': ImageConstant.svgPayment, 'label': LocaleKeys.payment.tr},
+    // {
+    //   'icon': ImageConstant.svgSubscription,
+    //   'label': LocaleKeys.subscription.tr
+    // },
+    // {'icon': ImageConstant.svgPayment, 'label': LocaleKeys.payment.tr},
     {'icon': ImageConstant.svgTerms, 'label': LocaleKeys.terms_of_use.tr},
     {'icon': ImageConstant.svgPrivacy, 'label': LocaleKeys.privacy_policy.tr},
+  ];
+
+  List<String> terms = [
+    'Information Collection: We collect personal information from users when they create an account, make a payment, leave a review or rating, or contact our customer service team. This may include name, email address, billing information, and demographic information.',
+    'Information Use: We use the information collected to provide our services, communicate with users about their accounts, and improve our platform. We may also use the information to send promotional emails or offers from our partners.',
+    'Information Sharing: We do not share personal information with third-party advertisers or marketing companies. We may share information with service providers who help us operate our platform, process payments, or provide customer support.',
+    'Payment Information: We use third-party payment processors to handle payments. We do not store or have access to user\'s payment information.',
+    'Security: We take reasonable steps to protect user information, but we cannot guarantee its absolute security. Users are responsible for protecting their account information and passwords.',
   ];
 
   List<String> privacy = [
@@ -44,33 +54,23 @@ class ProfileController extends GetxController {
   onListElementTap(int index) {
     switch (index) {
       case 0:
-        {
-          Get.toNamed(Routes.ACCOUNT_SETTINGS);
-        }
+        Get.toNamed(Routes.ACCOUNT_SETTINGS);
         break;
+      // case 1:
+      //   Get.toNamed(Routes.SUBSCRIPTION);
+      //   break;
+      // case 1:
+      //   Get.to(() => const Paypal());
+      //   break;
       case 1:
-        {
-          Get.toNamed(Routes.SUBSCRIPTION);
-        }
+        Get.to(() => const Terms());
         break;
       case 2:
-        {
-          print('object');
-        }
-        break;
-      case 3:
-        {
-          print('3');
-        }
-        break;
-      case 4:
         Get.to(() => const PrivacyPolicy());
         break;
       default:
     }
   }
 
-  onLogoutTap() {
-    Get.find<AuthService>().logOutUser();
-  }
+  onLogoutTap() async => await Get.find<AuthService>().logOutUser();
 }

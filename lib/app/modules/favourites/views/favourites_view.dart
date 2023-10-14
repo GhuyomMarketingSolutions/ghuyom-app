@@ -23,7 +23,7 @@ class FavouritesView extends GetView<FavouritesController> {
             Divider(
               height: 1.kh,
               thickness: 1.kh,
-              color: Color(0xffd9d9d9),
+              color: const Color(0xffd9d9d9),
             ),
             27.kheightBox,
             Padding(

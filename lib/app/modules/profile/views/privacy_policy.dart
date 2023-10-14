@@ -10,18 +10,19 @@ class PrivacyPolicy extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GhuyomAppbar(title: LocaleKeys.privacy_policy.tr),
+      appBar:
+          GhuyomAppbar(title: LocaleKeys.privacy_policy.tr, centerTitle: true),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 16.kw, vertical: 20.kh),
         children: List.generate(
-            controller.privacy.length,
+            controller.terms.length,
             (index) => Text.rich(TextSpan(children: [
                   TextSpan(
                       text:
-                          '${index + 1}. ${controller.privacy[index].split(':')[0]}: ',
+                          '${index + 1}. ${controller.terms[index].split(':')[0]}: ',
                       style: TextStyleUtil.manrope700(fontSize: 16.kh)),
                   TextSpan(
-                      text: '${controller.privacy[index].split(':')[1]}\n',
+                      text: '${controller.terms[index].split(':')[1]}\n',
                       style: TextStyleUtil.manrope500(fontSize: 16.kh)),
                 ]))),
       ),

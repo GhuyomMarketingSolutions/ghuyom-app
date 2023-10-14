@@ -56,7 +56,7 @@ class SubscriptionDetail extends StatelessWidget {
 
   textBullet(String text) {
     return Row(
-      children: [Text('⚈'), 10.kwidthBox, Expanded(child: text.text400(14.kh))],
+      children: [const Text('⚈'), 10.kwidthBox, Expanded(child: text.text400(14.kh))],
     );
   }
 }

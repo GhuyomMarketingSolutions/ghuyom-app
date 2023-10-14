@@ -3,18 +3,23 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:get/instance_manager.dart';
 import 'package:ghuyom/app/services/dio/api_service.dart';
 import 'package:ghuyom/app/services/snackbar.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../generated/locales.g.dart';
+import '../../../models/get_all_services.dart';
+import '../../business/controllers/business_controller.dart';
 
 class AddServiceController extends GetxController {
+  RxList<Services> services = <Services>[].obs;
+
   File? file;
 
   RxBool isDone = false.obs;
@@ -32,6 +37,7 @@ class AddServiceController extends GetxController {
   void onInit() {
     super.onInit();
     businessId = Get.arguments;
+    getAllServices();
   }
 
   // @override
@@ -70,9 +76,8 @@ class AddServiceController extends GetxController {
       if (file == null) {
         showMySnackbar(msg: LocaleKeys.please_add_picture.tr);
       } else {
-
         //TOdo: check API connectivity
-        
+
         await addPhoto();
       }
     }
@@ -83,9 +88,17 @@ class AddServiceController extends GetxController {
       await APIManager.addService(body: {
         "name": nameController.text,
         "description": descriptionController.text,
-        "price": int.parse(priceController.text),
+        "price": int.parse(priceController.text.trim()),
         "image": imageUrl
-      }, businessId: businessId ?? '');
+      }, businessId: businessId ?? '')
+          .then((value) async {
+        nameController.clear();
+        descriptionController.clear();
+        priceController.clear();
+        file = null;
+        await getAllServices();
+        Get.back();
+      });
     } catch (e) {
       log(e.toString());
     }
@@ -95,19 +108,47 @@ class AddServiceController extends GetxController {
     try {
       await APIManager.addSinglePhoto(
           body: FormData.fromMap({
-        'images': [
+        'file': [
           await MultipartFile.fromFile(file?.path ?? ''),
         ],
         'type': 'service'
       })).then((value) async {
         if (value.data['status']) {
           imageUrl = value.data['url'];
-          print(imageUrl);
+          // print(imageUrl);
           await addService();
         }
       });
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  getAllServices() async {
+    try {
+      await APIManager.getAllServices(businessId: businessId ?? '').then(
+          (value) => services.value =
+              GetAllServices.fromJson(value.data).services ?? []);
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  onDeleteBusinessTap(int index) async {
+    try {
+      // print(services.length);
+      await APIManager.deleteService(serviceId: services[index].id ?? '')
+          .then((value) {
+        services.removeAt(index);
+        // print(services.length);
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  onServicePageDone() async {
+    await Get.find<BusinessController>().getListedBusinesses();
+    Get.back();
   }
 }

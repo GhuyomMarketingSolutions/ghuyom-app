@@ -19,15 +19,7 @@ class NavigationView extends GetView<NavigationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:
-            //  PageView(
-            //   physics: const NeverScrollableScrollPhysics(),
-            //   controller: controller.pageViewController,
-            //   children: pages,
-            // ),
-            // bottomNavigationBar:
-
-            PersistentTabView(
+        body: PersistentTabView(
       controller: controller.pageViewController,
       context,
       navBarStyle: NavBarStyle.style14,
@@ -105,80 +97,7 @@ class NavigationView extends GetView<NavigationController> {
       ],
     ));
   }
+
+
+
 }
-// Container(
-//               decoration: BoxDecoration(boxShadow: [
-//                 BoxShadow(
-//                   color: Colors.black.withOpacity(0.05),
-//                   offset: const Offset(0, -15),
-//                   blurRadius: 15,
-//                   spreadRadius: 0,
-//                 ),
-//               ]),
-//               height: 76.kh,
-//               child: BottomNavigationBar(
-//                 backgroundColor: Colors.white,
-//                 type: BottomNavigationBarType.fixed,
-//                 // selectedItemColor: ColorUtil.selectedLabel,
-//                 // unselectedItemColor: ColorUtil.unSelectedLabel,
-//                 selectedLabelStyle: TextStyleUtil.manrope600(fontSize: 12.kh),
-//                 unselectedLabelStyle: TextStyleUtil.manrope600(fontSize: 12.kh),
-//                 currentIndex: controller.pageNo.value,
-//                 onTap: (value) => controller.onIconTap(value),
-//                 items: [
-//                   BottomNavigationBarItem(
-//                     label: '',
-//                     icon: CommonImageView(
-//                       svgPath: ImageConstant.svgHomeOff,
-//                       height: 21.kh,
-//                       width: 21.kh,
-//                     ),
-//                     activeIcon: CommonImageView(
-//                       svgPath: ImageConstant.svgHomeOn,
-//                       height: 21.kh,
-//                       width: 21.kh,
-//                     ),
-//                   ),
-//                   BottomNavigationBarItem(
-//                     label: '',
-//                     icon: CommonImageView(
-//                       svgPath: ImageConstant.svgBusinessOff,
-//                       height: 21.kh,
-//                       width: 21.kh,
-//                     ),
-//                     activeIcon: CommonImageView(
-//                       svgPath: ImageConstant.svgBusinessOn,
-//                       height: 21.kh,
-//                       width: 21.kh,
-//                     ),
-//                   ),
-//                   BottomNavigationBarItem(
-//                     label: '',
-//                     icon: CommonImageView(
-//                       svgPath: ImageConstant.svgFavouritesOff,
-//                       height: 24.kh,
-//                       width: 24.kh,
-//                     ),
-//                     activeIcon: CommonImageView(
-//                       svgPath: ImageConstant.svgFavouritesOff,
-//                       height: 24.kh,
-//                       width: 24.kh,
-//                     ),
-//                   ),
-//                   BottomNavigationBarItem(
-//                     label: '',
-//                     icon: CommonImageView(
-//                       svgPath: ImageConstant.svgProfileOff,
-//                       height: 24.kh,
-//                       width: 24.kh,
-//                     ),
-//                     activeIcon: CommonImageView(
-//                       svgPath: ImageConstant.svgProfileOn,
-//                       height: 24.kh,
-//                       width: 24.kh,
-//                     ),
-//                   ),
-//                 ],
-//                 elevation: 0,
-//               ),
-//             ),
